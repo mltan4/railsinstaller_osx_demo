@@ -1,12 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.7'
+#gem 'rails', '3.2.7'
+gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
-   gem 'sqlite3'
+   #gem 'sqlite3'
+   gem 'mysql2'
 end
 
 group :production do
@@ -48,6 +50,7 @@ gem 'jquery-rails'
 gem 'factory_girl_rails' 
 gem 'rspec-rails' 
 gem 'devise' 
-gem 'ruby-debug19' 
-gem 'ruby-debug-base19x' 
-gem 'ruby-debug-ide' #'0.4.6' 
+#gem 'ruby-debug19'
+#gem 'ruby-debug-base19x'
+#gem 'ruby-debug-ide' #'0.4.6'
+gem 'debugger'
