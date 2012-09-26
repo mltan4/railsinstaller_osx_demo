@@ -1,0 +1,43 @@
+<h1>Welcome#index</h1>
+
+<div>SEARCH GOES HERE</div>
+
+<div class="container-fluid">
+  <div id="main" class="row-fluid">
+    <div class="span3">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+          <li class="nav-header">Categories</li>
+          <li><%= link_to("New subject", {:controller => "subjects", :action => "new"}) %></li>
+          <li><%= link_to("List subjects", {:controller => "subjects", :action => "list"}) %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div id="main" class="row-fluid">
+    <div class="span3">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+          <li class="nav-header">Recently added</li>
+          <li><%= link_to("New subject", {:controller => "subjects", :action => "new"}) %></li>
+          <li><%= link_to("List subjects", {:controller => "subjects", :action => "list"}) %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div id="main" class="row-fluid">
+    <div class="span3">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+          <li class="nav-header">Ending soon</li>
+          <li><%= link_to("New subject", {:controller => "subjects", :action => "new"}) %></li>
+          <li><%= link_to("List subjects", {:controller => "subjects", :action => "list"}) %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
