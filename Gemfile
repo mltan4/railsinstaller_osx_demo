@@ -46,6 +46,9 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
+# CSS
+gem 'bootstrap-sass', '2.0.4'
+
 #suggested gems by Todd
 gem 'factory_girl_rails' 
 gem 'rspec-rails' 
