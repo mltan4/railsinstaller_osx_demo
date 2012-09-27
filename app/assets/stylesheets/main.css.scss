@@ -2,7 +2,7 @@
 
 /********** UNIVERSAL **********/
 
-/* basic html tags */
+/* BEGIN: Basic html tags */
 body { padding-top: 60px;
     padding-bottom: 40px; }
 .sidebar-nav { padding: 9px 0; }
@@ -18,5 +18,31 @@ div.white-bkg {
 
 div.grey-bkg {
   background:#EEE;}
+/* END: Basic html tags */
+
+/* BEGIN: LP Search bar */
+button.add-on {
+  height: 40px;
+  width: 90px;
+}//position: absolute;}
+
+search-bkg {
+  background: white;
+  display:block;
+  border: 1px solid black;
+}
+
+#search-form{
+  padding: 7px;
+  border: 1px solid #DDD;
+  background: #ffffff;
+  float: none;
+}
+
+.input-search {
+  height: 30px;
+  width: 50%;}
+/* END: LP Search bar*/
+
 /*************************/
 
