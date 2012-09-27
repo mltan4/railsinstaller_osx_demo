@@ -36,12 +36,20 @@ search-bkg {
   padding: 7px;
   border: 1px solid #DDD;
   background: #ffffff;
-  float: none;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .input-search {
   height: 30px;
   width: 50%;}
+
+button.sell-button{
+  height: 40px;
+  width: 150px;
+
+}
+
 /* END: LP Search bar*/
 
 /*************************/
