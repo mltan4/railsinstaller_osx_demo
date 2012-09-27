@@ -30,6 +30,8 @@ search-bkg {
   background: white;
   display:block;
   border: 1px solid black;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #search-form{
@@ -42,12 +44,12 @@ search-bkg {
 
 .input-search {
   height: 30px;
-  width: 50%;}
+  width: 610px;
+}
 
 button.sell-button{
   height: 40px;
   width: 150px;
-
 }
 
 /* END: LP Search bar*/

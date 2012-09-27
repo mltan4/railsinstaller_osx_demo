@@ -1,0 +1,35 @@
+<h1>Listing items</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Category</th>
+    <th>Quantity</th>
+    <th>Description</th>
+    <th>Buy price</th>
+    <th>Minimum bid price</th>
+    <th>Bid duration</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @items.each do |item| %>
+  <tr>
+    <td><%= item.title %></td>
+    <td><%= item.category_id %></td>
+    <td><%= item.quantity %></td>
+    <td><%= item.description %></td>
+    <td><%= item.buy_price %></td>
+    <td><%= item.minimum_bid_price %></td>
+    <td><%= item.bid_duration %></td>
+    <td><%= link_to 'Show', item %></td>
+    <td><%= link_to 'Edit', edit_item_path(item) %></td>
+    <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Item', new_item_path %>
