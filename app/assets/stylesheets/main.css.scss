@@ -33,21 +33,21 @@ search-bkg {
 }
 
 #search-form{
-  padding: 7px;
+  padding: 15px;
   border: 1px solid #DDD;
   background: #ffffff;
   margin-left: auto;
   margin-right: auto;
 }
 
-.input-search {
+input.search {
   height: 30px;
-  width: 50%;}
+  width: 75%;
+}
 
 button.sell-button{
   height: 40px;
-  width: 150px;
-
+  width: 100%;
 }
 
 /* END: LP Search bar*/
