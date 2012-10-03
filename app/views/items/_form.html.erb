@@ -2,7 +2,6 @@
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
-
       <ul>
       <% @item.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -10,45 +9,44 @@
       </ul>
     </div>
   <% end %>
-
+  <br><br>
   <div class="field">
-    <%= f.label :title %><br />
+    <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
-
+  <br>
   <div class="btn-group">   <!-- fix: we defined categories all in items controller -->
     Categories
-    <select class="span2">
-      <% @categories.each do |category| %>
-          <option value="<%= category.id %>"><%= category.title %></option>
-      <% end %>
-    </select>
-
+    <br>
+    <%= collection_select(:item, :category_id, Category.all, :id, :title) %>
   </div>
-
-
-
-    <div class="field">
-    <%= f.label :quantity %><br />
+  <br>
+  <div class="field">
+    <%= f.label :quantity %>
     <%= f.number_field :quantity %>
   </div>
+  <br>
   <div class="field">
-    <%= f.label :description %><br />
+    <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
+  <br>
   <div class="field">
-    <%= f.label :buy_price %><br />
+    <%= f.label :buy_price %>
     <%= f.text_field :buy_price %>
   </div>
+  <br>
   <div class="field">
-    <%= f.label :minimum_bid_price %><br />
+    <%= f.label :minimum_bid_price %>
     <%= f.text_field :minimum_bid_price %>
   </div>
+  <br>
   <div class="field">
-    <%= f.label :bid_duration %><br />
+    <%= f.label :bid_duration %>
     <%= f.number_field :bid_duration %>
   </div>
+  <br>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Update Item", :class => "btn btn-primary"%>
   </div>
 <% end %>
