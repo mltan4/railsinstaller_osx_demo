@@ -2,23 +2,26 @@
 <h1 xmlns="http://www.w3.org/1999/html">Search Results</h1>
 <br>
 <br>
+
+<% @items.each do |item| %>
+
 <div id="Results" class="row-fluid">
   <div class="">
     <div class="well sidebar-nav white-bkg">
       <ul class="nav nav-list">
-        <li class="nav-header ">Recently added</li>
         <li>
           <ul class="thumbnails">
             <li class="span3">
               <div class="thumbnail grey-bkg">
                 <%= image_tag("temp/iphone5.jpeg") %>
-                <h4>iPhone 5 16GB</h4>
-                <p class="content-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                <h4><%= item.title %></h4>
               </div>
             </li>
+            <h2><%= item.description %></h2>
           </ul>
         </li>
       </ul>
     </div>
   </div>
 </div>
+<% end %>
