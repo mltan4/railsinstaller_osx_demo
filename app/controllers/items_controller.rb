@@ -10,6 +10,9 @@ class ItemsController < ApplicationController
     end
   end
 
+  def search
+  end
+
   # GET /items/1
   # GET /items/1.json
   def show
@@ -25,7 +28,7 @@ class ItemsController < ApplicationController
   # GET /items/new.json
   def new
     @item = Item.new
-
+    @categories = Category.all #<!-- added this -->
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @item }

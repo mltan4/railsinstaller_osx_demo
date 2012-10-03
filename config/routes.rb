@@ -1,7 +1,9 @@
 BestBay::Application.routes.draw do
   get "welcome/index"
-  resources :categories
+  get "items/search"
+  #match 'items/search' => 'items#search'
 
+  resources :categories
   resources :items
 
   # The priority is based upon order of creation:
