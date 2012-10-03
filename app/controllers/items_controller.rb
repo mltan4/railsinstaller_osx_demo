@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
   end
 
   def search
-    @items = Item.find_all_by_title(params[:id])
+    @items = Item.find_all_by_category_id(params[:id])
   end
 
   # GET /items/1
