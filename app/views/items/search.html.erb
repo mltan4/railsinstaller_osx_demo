@@ -2,6 +2,28 @@
 <h1 xmlns="http://www.w3.org/1999/html">Search Results</h1>
 <br>
 <br>
+
+<div id="search-form">
+  <table  style="width: 100%;">
+    <tr>
+      <td style="width: 70%;" >
+        <%= form_tag({:controller => "items", :action => "search"}, :class => "simple") do %>
+            <input id="search_input" class="search" placeholder="Search..." type="text" />
+            <button class="btn add-on" style="vertical-align: top;">
+              <i class="icon-search"></i>
+            </button>
+        <% end %>
+      </td>
+      <td style="width: 30%; vertical-align: top;">
+        <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
+            <button class="btn sell-button">Sell item</button>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>
+<br>
+
 <% @items.each do |item| %>
      <br>
 <div id="Results" class="row-fluid">
@@ -16,7 +38,15 @@
                 <h4><%= item.title %></h4>
               </div>
             </li>
-            <h2><%= item.description %></h2>
+            <table  style="width: 100%;">
+            <td style="width: 30%; vertical-align: top;">
+              <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
+                  <button class="btn buy-now-button">Buy Now</button>
+              <% end %>
+            </td>
+              <table  style="width: 100%;">
+            <h2>Description</h2>
+            <%= item.description %>
           </ul>
         </li>
       </ul>
