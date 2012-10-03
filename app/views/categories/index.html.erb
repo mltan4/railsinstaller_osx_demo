@@ -16,6 +16,21 @@
     <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+
+
+  <div class="btn-group">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+      Categories
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+      <% @categories.each do |category| %>
+          <li class="divider"></li>
+          <li><a tabindex="-1" href="#"><%= category.title %></a></li>
+      <% end %>
+    </ul>
+  </div>
+
 </table>
 
 <br />
