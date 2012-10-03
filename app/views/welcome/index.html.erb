@@ -1,27 +1,27 @@
 <h1>Welcome to BestBay!</h1>​
   <br>
   <br>
-  <form id="search-form">
-    <div>
+  <div id="search-form">
       <table  style="width: 100%;">
         <tr>
           <td style="width: 70%;" >
-            <input class="search" placeholder="Search..." type="text" />
-            <button class="btn add-on" style="vertical-align: top;">
-              <i class="icon-search"></i>
-            </button>
+            <%= form_tag({:controller => "items", :action => "search"}, :class => "simple") do %>
+                <input id="search_input" class="search" placeholder="Search..." type="text" />
+                <button class="btn add-on" style="vertical-align: top;">
+                  <i class="icon-search"></i>
+                </button>
+            <% end %>
           </td>
           <td style="width: 30%; vertical-align: top;">
-            <%=  button_tag "Sell item", :type => 'button', :controller => "items", :action => "new", :class => "btn btn-warning sell-button" %>
-
-            <!--<button class="btn btn-warning sell-button">-->
-              <!--Sell item-->
-            <!--</button>-->
+            <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
+              <button class="btn btn-warning sell-button">Sell item</button>
+            <% end %>
           </td>
         </tr>
       </table>
-    </div>
-  </form>
+  </div>
+<br>
+
 <div>
   <div id="categories" class="row-fluid">
       <div class="well sidebar-nav white-bkg">
