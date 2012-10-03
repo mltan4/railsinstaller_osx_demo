@@ -1,4 +1,9 @@
 BestBay::Application.routes.draw do
+
+  devise_for :users
+
+  devise_for :models
+
   get "welcome/index"
 
   resources :categories
