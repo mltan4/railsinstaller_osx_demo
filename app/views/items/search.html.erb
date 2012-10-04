@@ -3,54 +3,72 @@
 <br>
 <br>
 
-<div id="search-form">
-  <table  style="width: 100%;">
-    <tr>
-      <td style="width: 70%;" >
-        <%= form_tag({:controller => "items", :action => "search"}, :class => "simple") do %>
-            <input id="search_input" class="search" placeholder="Search..." type="text" />
-            <button class="btn add-on" style="vertical-align: top;">
-              <i class="icon-search"></i>
-            </button>
-        <% end %>
-      </td>
-      <td style="width: 30%; vertical-align: top;">
-        <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
-            <button class="btn sell-button">Sell item</button>
-        <% end %>
-      </td>
-    </tr>
-  </table>
-</div>
-<br>
-
-<% @items.each do |item| %>
-     <br>
 <div id="Results" class="row-fluid">
-  <div class="">
-    <div class="well sidebar-nav white-bkg">
-      <ul class="nav nav-list">
-        <li>
-          <ul class="thumbnails">
-            <li class="span3">
-              <div class="thumbnail grey-bkg">
-                <%= image_tag("items/"+item.id.to_s+".jpeg") %>
-                <h4><%= item.title %></h4>
-              </div>
-            </li>
-            <table  style="width: 100%;">
-            <td style="width: 30%; vertical-align: top;">
-              <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
-                  <button class="btn buy-now-button">Buy Now</button>
-              <% end %>
+  <div class="well sidebar-nav white-bkg">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Thumb</th>
+        <th>Item</th>
+        <th>Bid Duration</th>
+        <th>Minimum Bid</th>
+        <th>Buy it Now</th>
+        <th>Bid Duration</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @items.each do |item| %>
+          <tr>
+            <td> <%= image_tag("items/"+item.id.to_s+".jpeg", ) %> </td>
+            <td><%= item.title %></td>
+            <td><%= item.bid_duration %></td>
+            <td><%= item.minimum_bid_price %></td>
+            <td><%= item.buy_price %></td>
+            <td><%= distance_of_time_in_words_to_now(item.created_at + item.bid_duration.to_i.days) %></td>
+            <% if item.buy_price > 0   %>
+                <td style="width: 10%; vertical-align: top;">
+                  <%= form_tag({:action => "show", :id => item.id}, :class => "simple") do %>
+                      <button class="btn buy-now-button">Buy Now</button>
+                  <% end %>
+            <% end %>
             </td>
-              <table  style="width: 100%;">
-            <h2>Description</h2>
-            <%= item.description %>
-          </ul>
-        </li>
-      </ul>
-    </div>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
-<% end %>
+
+
+<br>
+<!--<div id="Results" class="row-fluid">-->
+<!--<div class="">-->
+<!--<div class="well sidebar-nav white-bkg">-->
+<!--<ul class="nav nav-list">-->
+<!--<li>-->
+<!--<ul class="thumbnails">-->
+<!--<li class="span3">-->
+<!--<div class="thumbnail grey-bkg">-->
+<!--<= image_tag("items/"+item.id.to_s+".jpeg") %>-->
+<!--<h4><= item.title %></h4>-->
+<!--</div>-->
+<!--</li>-->
+<!--<table  style="width: 10%;">-->
+<!--<tr>-->
+<!--<h3>Bid Duration</h3>-->
+<!--<= item.bid_duration %>-->
+<!--<tr>-->
+<!--<td style="width: 10%; vertical-align: top;">-->
+<!--<= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>-->
+<!--<button class="btn buy-now-button">Buy Now</button>-->
+<!--< end %>-->
+<!--</td>-->
+<!--</tr>-->
+<!--</tr>-->
+<!--</table>-->
+<!--</ul>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
