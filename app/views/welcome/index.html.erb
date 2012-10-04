@@ -6,8 +6,8 @@
         <tr>
           <td style="width: 70%;" >
             <%= form_tag({:controller => "items", :action => "search"}, :class => "simple") do %>
-                <input id="search_input" class="search" placeholder="Search..." type="text" />
-                <button class="btn add-on" style="vertical-align: top;">
+                <%= text_field_tag "item_title", nil, :placeholder => 'Enter item to search...', :class => "search"%>
+                <button class="btn add-on" style="vertical-align: top;" type="submit">
                   <i class="icon-search"></i>
                 </button>
             <% end %>
