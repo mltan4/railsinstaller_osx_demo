@@ -1,40 +1,79 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Display Title:</b>
-  <%= @item.display_title %>
-</p>
 
-<p>
-  <b>Category:</b>
-  <%= @item.category_id %>
-</p>
+<table>
+  <tr>
+    <td>
+      <h2><%= @item.display_title %></h2>
+      <ul class="thumbnails">
+        <li class="span6">
+          <div class="thumbnail grey-bkg">
+            <%=  image_tag("items/"+@item.id.to_s+".jpeg") %>
+          </div>
+        </li>
+      </ul>
+    </td>
+    <td style="width: 10%; vertical-align: top;">
+      <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
+          <button class="btn buy-now-button">Buy Now</button>
+      <% end %>
+    </td>
+  </tr>
 
-<p>
-  <b>Quantity:</b>
-  <%= @item.quantity %>
-</p>
+  <tr>
+    <td>
+      <p>
+        <b>Category:</b>
+        <%= @item.category_id %>
+      </p>
+    </td>
+  </tr>
 
-<p>
-  <b>Description:</b>
-  <%= @item.description %>
-</p>
+  <tr>
+    <td>
+      <p>
+        <b>Quantity:</b>
+        <%= @item.quantity %>
+      </p>
+    </td>
+  </tr>
 
-<p>
-  <b>Buy price:</b>
-  <%= @item.buy_price %>
-</p>
+  <tr>
+    <td>
+      <p>
+        <b>Description:</b>
+        <%= @item.description %>
+      </p>
+    </td>
+  </tr>
 
-<p>
-  <b>Minimum bid price:</b>
-  <%= @item.minimum_bid_price %>
-</p>
+  <tr>
+    <td>
+      <p>
+        <b>Buy price:</b>
+        <%= @item.buy_price %>
+      </p>
+    </td>
+  </tr>
 
-<p>
-  <b>Bid duration:</b>
-  <%= @item.bid_duration %>
-</p>
+  <tr>
+    <td>
+      <p>
+        <b>Minimum bid price:</b>
+        <%= @item.minimum_bid_price %>
+      </p>
+    </td>
+  </tr>
 
+  <tr>
+    <td>
+      <p>
+        <b>Bid duration:</b>
+        <%= @item.bid_duration %>
+      </p>
+    </td>
+  </tr>
+</table>
 
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>
