@@ -33,6 +33,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @category = Category.find(@item.category_id)
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
+    #TODO: @seller = User.find_by_item_id(@item.id)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @item }
