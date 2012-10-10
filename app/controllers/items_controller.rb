@@ -31,7 +31,8 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
     @item = Item.find(params[:id])
-
+    @category = Category.find(@item.category_id)
+    @item_end_date = @item.created_at + @item.bid_duration.to_i.days
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @item }
@@ -42,7 +43,6 @@ class ItemsController < ApplicationController
   # GET /items/new.json
   def new
     @item = Item.new
-    @item.current_bid = 0
     @categories = Category.all #<!-- added this -->
     respond_to do |format|
       format.html # new.html.erb

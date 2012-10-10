@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(:version => 20121010003222) do
     t.decimal  "buy_price",         :precision => 10, :scale => 0
     t.decimal  "minimum_bid_price", :precision => 10, :scale => 0
     t.integer  "bid_duration"
-    t.datetime "created_at",                                       :null => false
-    t.datetime "updated_at",                                       :null => false
+    t.datetime "created_at",                                                      :null => false
+    t.datetime "updated_at",                                                      :null => false
     t.string   "display_title"
-    t.integer  "current_bid"
+    t.integer  "current_bid",                                      :default => 0
   end
 
   create_table "models", :force => true do |t|

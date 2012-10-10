@@ -1,11 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-
 <table>
+  <ul class="breadcrumb">
+    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li><a href="#"><%= @category.title %></a> <span class="divider">/</span></li>
+    <li class="active"><%= @item.title %></li>
+  </ul>
   <tr>
     <td>
       <ul class="thumbnails">
-        <li class="span6">
+        <li class="span9">
           <div class="thumbnail grey-bkg">
             <%=  image_tag("items/"+@item.id.to_s+".jpeg") %>
           </div>
@@ -13,77 +17,43 @@
       </ul>
     </td>
     <td style="width: 10%; vertical-align: top;">
-      <% if @item.buy_price > 0   %>
-          <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
-              <button class="btn buy-now-button">Buy Now</button>
-          <% end %>
-      <% end %>
     </td>
 
     <td>
       <h2><%= @item.display_title %></h2>
-      <div class="well well-large">
-        <strong>Minimum Bid:</strong> $<%= @item.minimum_bid_price %>
+      <!--well well-large">-->
+      <div class="well well-large" width="50%">
+        Bidding ends in <%= distance_of_time_in_words_to_now(@item_end_date) %>!
         <br>
-        <strong>Current Bid:</strong> $<%= @item.current_bid %>
+        <% if @item.current_bid >= 0   %>
+            <strong>Current Bid:</strong> $<%= @item.current_bid %>
+            <br>
+            <form class="form-inline">
+              <input type="text" class="input-small" placeholder="Your Bid">
+              <button type="submit" class="btn">Bid</button>
+            </form>
+            <small>(Minimum bid is $<%= @item.minimum_bid_price %>)</small>
+            <br>
+        <% end %>
         <br>
-        Bidding ends in <%= distance_of_time_in_words_to_now(@item.created_at + @item.bid_duration.to_i.days) %>!
+        <% if @item.buy_price > 0   %>
+            <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
+                <button class="btn buy-now-button">Buy Now for $<%= @item.buy_price %>!</button>
+            <% end %>
+            <small>(Quantity:<%= @item.quantity %>)</small>
+        <% end %>
       </div>
     </td>
   </tr>
-
+</table>
+<table>
   <tr>
     <td>
-      <p>
-        <b>Category:</b>
-        <%= @item.category_id %>
-      </p>
-    </td>
-  </tr>
+      <div class="well well-large">
+        <h2>Description:</h2>
 
-  <tr>
-    <td>
-      <p>
-        <b>Quantity:</b>
-        <%= @item.quantity %>
-      </p>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <p>
-        <b>Description:</b>
-
-      <p></pre><%= @item.description %></p>
-      </p>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <p>
-        <b>Buy price:</b>
-        <%= @item.buy_price %>
-      </p>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <p>
-        <b>Minimum bid price:</b>
-        <%= @item.minimum_bid_price %>
-      </p>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <p>
-        <b>Bid duration:</b>
-        <%= @item.bid_duration %>
-      </p>
+        <p><%= @item.description %> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum egestas ultricies. Mauris nibh velit, vehicula eu dapibus non, pharetra eu purus. Donec est risus, ultricies ut egestas id, ultrices ut enim. Aliquam eget libero nisi, vitae molestie lorem. Phasellus laoreet purus vel risus gravida eget porttitor libero scelerisque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut vitae nibh velit, quis facilisis justo. Cras vitae diam et quam euismod luctus in ut enim. Phasellus luctus ligula at orci facilisis non facilisis purus commodo. Proin gravida nunc vel nulla ornare ut dapibus lorem rutrum.</p>
+      </div>
     </td>
   </tr>
 </table>
