@@ -4,7 +4,6 @@
 <table>
   <tr>
     <td>
-      <h2><%= @item.display_title %></h2>
       <ul class="thumbnails">
         <li class="span6">
           <div class="thumbnail grey-bkg">
@@ -14,9 +13,22 @@
       </ul>
     </td>
     <td style="width: 10%; vertical-align: top;">
-      <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
-          <button class="btn buy-now-button">Buy Now</button>
+      <% if @item.buy_price > 0   %>
+          <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
+              <button class="btn buy-now-button">Buy Now</button>
+          <% end %>
       <% end %>
+    </td>
+
+    <td>
+      <h2><%= @item.display_title %></h2>
+      <div class="well well-large">
+        <strong>Minimum Bid:</strong> $<%= @item.minimum_bid_price %>
+        <br>
+        <strong>Current Bid:</strong> $<%= @item.current_bid %>
+        <br>
+        Bidding ends in <%= distance_of_time_in_words_to_now(@item.created_at + @item.bid_duration.to_i.days) %>!
+      </div>
     </td>
   </tr>
 
@@ -42,7 +54,8 @@
     <td>
       <p>
         <b>Description:</b>
-        <%= @item.description %>
+
+      <p></pre><%= @item.description %></p>
       </p>
     </td>
   </tr>

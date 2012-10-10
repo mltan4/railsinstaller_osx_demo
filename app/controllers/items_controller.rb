@@ -42,6 +42,7 @@ class ItemsController < ApplicationController
   # GET /items/new.json
   def new
     @item = Item.new
+    @item.current_bid = 0
     @categories = Category.all #<!-- added this -->
     respond_to do |format|
       format.html # new.html.erb

@@ -34,10 +34,10 @@
             <td><%= distance_of_time_in_words_to_now(item.created_at + item.bid_duration.to_i.days) %></td>
                 <td style="width: 10%; vertical-align: top;">
                   <% if item.buy_price > 0   %>
-                  <%= form_tag({:action => "show", :id => item.id}, :class => "simple") do %>
-                      <button class="btn buy-now-button">Buy Now</button>
-                  <% end %>
-            <% end %>
+                     <%= form_tag({:action => "show", :id => item.id}, :class => "simple") do %>
+                          <button class="btn buy-now-button">Buy Now</button>
+                      <% end %>
+                <% end %>
             </td>
           </tr>
       <% end %>
