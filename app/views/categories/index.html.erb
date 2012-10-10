@@ -1,8 +1,9 @@
 <h1>Listing categories</h1>
-
-<table>
+<br><br>
+<table class="table table-striped">
   <tr>
-    <th>Title</th>
+    <th><h4>Title</h4></th>
+    <th><h4>Description</h4></th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,7 +11,17 @@
 
 <% @categories.each do |category| %>
   <tr>
-    <td><%= category.title %></td>
+    <td>
+      <ul class="thumbnails categories_thumb">
+        <li class="span12">
+          <%= link_to image_tag("categories/"+category.id.to_s+".jpeg"), {:controller => "items", :action => "search", :category_id => category.id.to_s}, :class => "thumbnail" %>
+        </li>
+      </ul>
+    </td>
+    <td>
+      <h4><%= category.title %></h4>
+      <p class="content-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+    </td>
     <td><%= link_to 'Show', category %></td>
     <td><%= link_to 'Edit', edit_category_path(category) %></td>
     <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -18,18 +29,6 @@
 <% end %>
 
 
-  <div class="btn-group">
-    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-      Categories
-      <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-      <% @categories.each do |category| %>
-          <li class="divider"></li>
-          <li><a tabindex="-1" href="#"><%= category.title %></a></li>
-      <% end %>
-    </ul>
-  </div>
 
 </table>
 

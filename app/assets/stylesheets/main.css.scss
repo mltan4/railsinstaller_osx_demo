@@ -54,6 +54,10 @@ button.sell-button{
 form.simple{
   margin: 0 0 0px;
 }
+
+a.lp_color {
+  color: #F89406;
+}
 /* END: LP Search bar*/
 
 /* BEGIN: Search results page */
@@ -64,3 +68,9 @@ button.buy-now-button{
 /* END: Search results page */
 /*************************/
 
+/* BEGIN: Categories page */
+ul.categories_thumb {
+  width: 160px;
+}
+/* END: Categories page */
+/*************************/
