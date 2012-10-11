@@ -26,37 +26,18 @@
   <div id="categories" class="row-fluid">
       <div class="well sidebar-nav white-bkg">
         <ul class="nav nav-list">
-          <li class="nav-header ">Categories</li>
+          <li class="nav-header "><%= link_to "Categories", {:controller => "categories", :action => "index"}, :class => "lp_color" %></li>
           <li>
             <ul class="thumbnails">
+              <% @categories.first(4).each do |category| %>
               <li class="span3">
                 <div class="thumbnail grey-bkg">
-                  <%= image_tag("main_categories/electronics.jpeg") %>
-                  <h4>Electronics</h4>
+                  <%= link_to image_tag("categories/"+category.id.to_s+".jpeg"), {:controller => "items", :action => "search", :category_id => category.id.to_s} %>
+                  <h4><%= category.title %></h4>
                   <p class="content-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
                 </div>
               </li>
-              <li class="span3">
-                <div class="thumbnail grey-bkg">
-                  <%= image_tag("main_categories/furniture.jpeg") %>
-                  <h4>Furniture</h4>
-                  <p class="content-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                </div>
-              </li>
-              <li class="span3">
-                <div class="thumbnail grey-bkg">
-                  <%= image_tag("main_categories/fashion2.jpeg") %>
-                  <h4>Fashion</h4>
-                  <p class="content-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                </div>
-              </li>
-              <li class="span3">
-                <div class="thumbnail grey-bkg">
-                  <%= image_tag("main_categories/kids.jpeg") %>
-                  <h4>Kids</h4>
-                  <p class="content-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                </div>
-              </li>
+              <% end %>
             </ul>
           </li>
         </ul>

@@ -13,7 +13,6 @@ class ItemsController < ApplicationController
   def search
     #@items = Item.find_all_by_category_id(params[:id])
     #@items = Item.search_item_by_title(params[:id].to_s.downcase)
-    puts "@@@@@@@@@ " + params["item_title"]
 
     if params["item_title"].to_s.downcase != "" # Search by title
       @items = Item.search_item_by_title(params["item_title"].to_s.downcase)
