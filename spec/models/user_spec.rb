@@ -9,7 +9,6 @@ describe User do
 
   subject { @user }
 
-  #it { should respond_to(:authenticate) }
-
+    it { should respond_to(:password_confirmation) }
 
 end
