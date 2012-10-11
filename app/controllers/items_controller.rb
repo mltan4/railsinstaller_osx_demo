@@ -10,11 +10,29 @@ class ItemsController < ApplicationController
     end
   end
 
+  def search
+    #@items = Item.find_all_by_category_id(params[:id])
+    #@items = Item.search_item_by_title(params[:id].to_s.downcase)
+
+    if params["item_title"].to_s.downcase != "" # Search by title
+      @items = Item.search_item_by_title(params["item_title"].to_s.downcase)
+    else # Search by parameters
+      if params["category_id"].to_s.downcase != ""
+        @items = Item.where(:category_id => params["category_id"])
+      end
+      #if params["id"].to_s.downcase != ""
+      #  @items = @items.where(:id => params["id"])
+      #end
+    end
+  end
+
   # GET /items/1
   # GET /items/1.json
   def show
     @item = Item.find(params[:id])
-
+    @category = Category.find(@item.category_id)
+    @item_end_date = @item.created_at + @item.bid_duration.to_i.days
+    #TODO: @seller = User.find_by_item_id(@item.id)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @item }
@@ -35,13 +53,14 @@ class ItemsController < ApplicationController
   # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])
+    @categories = Category.all
   end
 
   # POST /items
   # POST /items.json
   def create
     @item = Item.new(params[:item])
-
+    @item.title = @item.display_title.downcase
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }

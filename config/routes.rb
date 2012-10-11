@@ -5,6 +5,8 @@ BestBay::Application.routes.draw do
   devise_for :models
 
   get "welcome/index"
+  get "items/search"
+  #match 'items/search' => 'items#search'
 
   resources :categories
   resources :items

@@ -4,8 +4,26 @@
 
 /* BEGIN: Basic html tags */
 body { padding-top: 60px;
-    padding-bottom: 40px; }
+    padding-bottom: 40px;
+    background-image: url('temp/background.png');
+    background-size: 1440px 800px;
+    background-repeat:repeat;
+}
 .sidebar-nav { padding: 9px 0; }
+
+.navbar-inner {
+  background-color: #9F111B; /* background color will be black for all browsers */
+  background-image: none;
+  background-repeat: no-repeat;
+  filter: none;
+}
+
+a.nav {
+  color:
+    #FFF;
+  text-decoration: none;
+}
+
 .hero-unit p.text-success { color: #468847;
     font-size: 14px; }
 
@@ -14,7 +32,8 @@ p.content-text {
   font-size: 12px; }
 
 div.white-bkg {
-  background:white;}
+  background:white;
+  border: 1px solid #DDD;}
 
 div.grey-bkg {
   background:#EEE;}
@@ -24,7 +43,7 @@ div.grey-bkg {
 button.add-on {
   height: 40px;
   width: 90px;
-}//position: absolute;}
+}
 
 search-bkg {
   background: white;
@@ -50,7 +69,26 @@ button.sell-button{
   width: 100%;
 }
 
+form.simple{
+  margin: 0 0 0px;
+}
+
+a.lp_color {
+  color: #F89406;
+}
 /* END: LP Search bar*/
 
+/* BEGIN: Search results page */
+button.buy-now-button{
+  height: 40px;
+  width: 100%;
+}
+/* END: Search results page */
 /*************************/
 
+/* BEGIN: Categories page */
+ul.categories_thumb {
+  width: 160px;
+}
+/* END: Categories page */
+/*************************/

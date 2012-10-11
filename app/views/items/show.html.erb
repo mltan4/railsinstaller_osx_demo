@@ -1,40 +1,77 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
-  <%= @item.title %>
-</p>
+<table>
+  <ul class="breadcrumb">
+    <li><a href="#">Home</a> <span class="divider">/</span></li>
+    <li><a href="#"><%= @category.title %></a> <span class="divider">/</span></li>
+    <li class="active"><%= @item.title %></li>
+  </ul>
+  <tr>
+    <td class="span9">
+      <ul class="thumbnails">
+        <li class="span12">
+          <div class="thumbnail grey-bkg">
+            <%=  image_tag("items/"+@item.id.to_s+".jpeg") %>
+          </div>
+        </li>
+      </ul>
+    </td>
+    <td>
+      <h2><%= @item.display_title %></h2>
+      <!--well well-large">-->
+      <div class="well well-large" style="width: 150px">
+        <!--style="width: 400px"-->
+        <!--style="width: 400px"-->
+        Bidding ends in <%= distance_of_time_in_words_to_now(@item_end_date) %>!
+        <br>
+        <% if @item.current_bid >= 0   %>
+            <!--TODO: [ <= @item.bids %> bids ]-->
+            [ <a href = "example.com">3 bids</a> ]
+            <br>
+            <strong>Current Bid:</strong> $<%= @item.current_bid %>
+            <br>
+            <br>
+            <form class="form-inline">
+              <input type="text" class="input-small" placeholder="Your Bid">
+              <button type="submit" class="btn btn-success">Bid</button>
+            </form>
+            <small>(Minimum bid is $<%= @item.minimum_bid_price %>)</small>
+            <br>
+        <% end %>
+        <br>
+        <% if @item.buy_price > 0   %>
+            <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
+                <button class="btn btn-warning buy-now-button">Buy Now for $<%= @item.buy_price %>!</button>
+            <% end %>
+            <small>(Quantity:<%= @item.quantity %>)</small>
+        <% end %>
+      </div>
+    </td>
+    <td>
+      <div class="well well-large">
+      Seller information:
+        <!--TODO: Add seller username when creating a new item-->
+      <a href="example.com">gerryCool68</a>
+        <!--TODO: Add seller rating to migration-->
+        <!--<TODO: (1..@seller.rating).each do %>-->
+        <br>
+        <!--<= TODO: @seller.items_sold %> -->
+        [ 3 items sold ]
+          </div>
+    </td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td>
+      <div class="well well-large">
+        <h2>Description:</h2>
 
-<p>
-  <b>Category:</b>
-  <%= @item.category_id %>
-</p>
-
-<p>
-  <b>Quantity:</b>
-  <%= @item.quantity %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @item.description %>
-</p>
-
-<p>
-  <b>Buy price:</b>
-  <%= @item.buy_price %>
-</p>
-
-<p>
-  <b>Minimum bid price:</b>
-  <%= @item.minimum_bid_price %>
-</p>
-
-<p>
-  <b>Bid duration:</b>
-  <%= @item.bid_duration %>
-</p>
-
+        <p><%= @item.description %> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum egestas ultricies. Mauris nibh velit, vehicula eu dapibus non, pharetra eu purus. Donec est risus, ultricies ut egestas id, ultrices ut enim. Aliquam eget libero nisi, vitae molestie lorem. Phasellus laoreet purus vel risus gravida eget porttitor libero scelerisque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut vitae nibh velit, quis facilisis justo. Cras vitae diam et quam euismod luctus in ut enim. Phasellus luctus ligula at orci facilisis non facilisis purus commodo. Proin gravida nunc vel nulla ornare ut dapibus lorem rutrum.</p>
+      </div>
+    </td>
+  </tr>
+</table>
 
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>
