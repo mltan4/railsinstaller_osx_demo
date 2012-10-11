@@ -9,10 +9,9 @@
       <thead>
       <tr>
         <th>Items</th>
-        <th>Bid Duration</th>
         <th>Minimum Bid</th>
-        <th>Buy it Now</th>
         <th>Bid Duration</th>
+        <th>Buy it Now</th>
       </tr>
       </thead>
       <tbody>
@@ -28,14 +27,12 @@
                   </li>
                 </ul>
             </td>
-            <td><%= item.bid_duration %></td>
-            <td><%= item.minimum_bid_price %></td>
-            <td><%= item.buy_price %></td>
+            <td>$<%= item.minimum_bid_price %></td>
             <td><%= distance_of_time_in_words_to_now(item.created_at + item.bid_duration.to_i.days) %></td>
                 <td style="width: 10%; vertical-align: top;">
                   <% if item.buy_price > 0   %>
                      <%= form_tag({:action => "show", :id => item.id}, :class => "simple") do %>
-                          <button class="btn buy-now-button">Buy Now</button>
+                          <button class="btn btn-warning">$<%= item.buy_price %></button>
                       <% end %>
                 <% end %>
             </td>

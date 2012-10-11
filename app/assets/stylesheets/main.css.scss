@@ -4,8 +4,26 @@
 
 /* BEGIN: Basic html tags */
 body { padding-top: 60px;
-    padding-bottom: 40px; }
+    padding-bottom: 40px;
+    background-image: url('temp/background.png');
+    background-size: 1440px 800px;
+    background-repeat:repeat;
+}
 .sidebar-nav { padding: 9px 0; }
+
+.navbar-inner {
+  background-color: #9F111B; /* background color will be black for all browsers */
+  background-image: none;
+  background-repeat: no-repeat;
+  filter: none;
+}
+
+a.nav {
+  color:
+    #FFF;
+  text-decoration: none;
+}
+
 .hero-unit p.text-success { color: #468847;
     font-size: 14px; }
 
