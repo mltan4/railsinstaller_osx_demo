@@ -30,9 +30,10 @@
             <br>
             <strong>Current Bid:</strong> $<%= @item.current_bid %>
             <br>
+            <br>
             <form class="form-inline">
               <input type="text" class="input-small" placeholder="Your Bid">
-              <button type="submit" class="btn">Bid</button>
+              <button type="submit" class="btn btn-success">Bid</button>
             </form>
             <small>(Minimum bid is $<%= @item.minimum_bid_price %>)</small>
             <br>
@@ -40,7 +41,7 @@
         <br>
         <% if @item.buy_price > 0   %>
             <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
-                <button class="btn buy-now-button">Buy Now for $<%= @item.buy_price %>!</button>
+                <button class="btn btn-warning buy-now-button">Buy Now for $<%= @item.buy_price %>!</button>
             <% end %>
             <small>(Quantity:<%= @item.quantity %>)</small>
         <% end %>
@@ -53,10 +54,9 @@
       <a href="example.com">gerryCool68</a>
         <!--TODO: Add seller rating to migration-->
         <!--<TODO: (1..@seller.rating).each do %>-->
-        Rating:
-        <% (1..3).each do |i| %>
-            <i class="icon-star"></i>
-        <% end %>
+        <br>
+        <!--<= TODO: @seller.items_sold %> -->
+        [ 3 items sold ]
           </div>
     </td>
   </tr>
