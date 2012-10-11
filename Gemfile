@@ -7,7 +7,7 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
-   #gem 'sqlite3'
+   gem 'sqlite3'
    gem 'mysql2'
 end
 
