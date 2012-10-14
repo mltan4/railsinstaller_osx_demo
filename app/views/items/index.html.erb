@@ -3,6 +3,7 @@
 <br>
 <table class="table table-striped">
   <tr>
+    <!--Display the header titles for the table-->
     <th>Title</th>
     <th>Category</th>
     <th>Quantity</th>
@@ -15,6 +16,7 @@
     <th></th>
   </tr>
 
+  <!--For each item, show the item information as cells in a table-->
 <% @items.each do |item| %>
   <tr>
     <td><%= item.title %></td>

@@ -1,6 +1,7 @@
 <%= form_for(@item) do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
+      <!--This message is displayed if there any errors saving items-->
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
       <ul>
       <% @item.errors.full_messages.each do |msg| %>
@@ -9,6 +10,7 @@
       </ul>
     </div>
   <% end %>
+    <!--Otherwise, display title and other fields as shown below-->
   <br><br>
   <div class="field">
     <%= f.label :display_title %>

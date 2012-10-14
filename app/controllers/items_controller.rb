@@ -29,9 +29,11 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    #Shows the item as identified by the id parameter
     @item = Item.find(params[:id])
     @category = Category.find(@item.category_id)
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
+    #Want to have seller information available, but require a new DB migration
     #TODO: @seller = User.find_by_item_id(@item.id)
     respond_to do |format|
       format.html # show.html.erb
@@ -42,8 +44,10 @@ class ItemsController < ApplicationController
   # GET /items/new
   # GET /items/new.json
   def new
+    #Creates new item
     @item = Item.new
-    @categories = Category.all #<!-- added this -->
+    #Store categories in categories variable for processing
+    @categories = Category.all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @item }
@@ -60,6 +64,7 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(params[:item])
+    #Create a new item, store the title downcase for DB for searching
     @item.title = @item.display_title.downcase
     respond_to do |format|
       if @item.save

@@ -10,6 +10,7 @@
 </head>
 <body>
 <!-- HEADER -->
+<!--Using the Bootstrap navbar class-->
 <div class="navbar navbar-inner navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
@@ -21,6 +22,7 @@
       <a class="brand" href="#">BestBay</a>
       <div class="nav-collapse collapse">
         <p class="navbar-text pull-right">
+          <!--Display sign-in and sign-out links with styling using Devise gem for session management-->
         <% if user_signed_in? %>
             Signed in as <%= current_user.email %>. Not You?
               <!--TODO: Add {:style=>'color:#FFFFFF;'} to "Sign Out"-->
@@ -49,6 +51,7 @@
     <div class="span12">
       <div id="content" class="hero-unit">
         <%= yield %>
+        <!--Display notices in body using flash-->
         <% if !flash[:notice].blank? %>
             <div class="alert alert-success">
               <!--p class="text-success"-->

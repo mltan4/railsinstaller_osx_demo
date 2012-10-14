@@ -18,10 +18,8 @@
     </td>
     <td>
       <h2><%= @item.display_title %></h2>
-      <!--well well-large">-->
       <div class="well well-large" style="width: 150px">
-        <!--style="width: 400px"-->
-        <!--style="width: 400px"-->
+        <!--Shows the bid end date as words using the function below-->
         Bidding ends in <%= distance_of_time_in_words_to_now(@item_end_date) %>!
         <br>
         <% if @item.current_bid >= 0   %>
@@ -31,6 +29,7 @@
             <strong>Current Bid:</strong> $<%= @item.current_bid %>
             <br>
             <br>
+            <!--Button for placing bid-->
             <form class="form-inline">
               <input type="text" class="input-small" placeholder="Your Bid">
               <button type="submit" class="btn btn-success">Bid</button>
@@ -40,6 +39,8 @@
         <% end %>
         <br>
         <% if @item.buy_price > 0   %>
+            <!--TODO: Buy price should have a boolean :enabled-->
+            <!--If buy it now is enabled, show the button to buy it now-->
             <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
                 <button class="btn btn-warning buy-now-button">Buy Now for $<%= @item.buy_price %>!</button>
             <% end %>

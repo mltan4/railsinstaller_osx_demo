@@ -161,4 +161,12 @@ describe ItemsController do
     end
   end
 
+  describe "Search action" do
+    it "searches an item" do
+      item = Item.create! valid_attributes
+      item.title="test"
+      item.save!
+      Item.search_item_by_title("test").should_not be_empty
+    end
+  end
 end
