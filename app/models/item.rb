@@ -1,8 +1,9 @@
 class Item < ActiveRecord::Base
-  attr_accessible :bid_duration, :buy_price, :category_id, :description, :minimum_bid_price, :quantity, :title, :display_title
+  attr_accessible :bid_duration, :buy_price, :category_id, :description, :minimum_bid_price, :quantity, :title, :display_title, :item_images_attributes
 
   # Relationships
-  belongs_to :category
+  has_many :item_images
+  accepts_nested_attributes_for :item_images, :allow_destroy => true
 
   # Functions
   # This is a search function, which queries the database for similar item titles

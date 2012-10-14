@@ -1,4 +1,4 @@
-<%= form_for(@item) do |f| %>
+<%= form_for @item, :html => {:multipart => true} do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <!--This message is displayed if there any errors saving items-->
@@ -35,7 +35,7 @@
   <br>
   <div class="field">
     <%= f.label :buy_price %>
-    <%= f.text_field :buy_price %>
+    <%= f.text_field :buy_price%>
   </div>
   <br>
   <div class="field">
@@ -48,6 +48,34 @@
     <%= f.number_field :bid_duration %>
   </div>
   <br>
+
+  <div class="field">
+    <h4>Upload Images</h4>
+    <br>
+    <%= f.fields_for :item_images do |asset_fields| %>
+        <% if asset_fields.object.new_record? %>
+            <p>
+              <%= asset_fields.file_field :asset %>
+            </p>
+        <% else @image_exist = true %>
+        <% end %>
+    <% end %>
+    <% if @image_exist %>
+      <h4>Current Images</h4>
+      <br>
+    <% end %>
+    <%= f.fields_for :item_images do |asset_fields| %>
+        <% unless asset_fields.object.new_record? %>
+            <div class="thumb">
+              <%= link_to image_tag(asset_fields.object.asset.url(:thumb)), asset_fields.object.asset.url(:original) %>
+              <%= asset_fields.check_box :_destroy %>
+            </div>
+            <br>
+        <% end %>
+    <% end %>
+  </div>
+  <br>
+
   <div class="actions">
     <%= f.submit :class => "btn btn-primary"%>
   </div>

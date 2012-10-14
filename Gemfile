@@ -56,3 +56,7 @@ gem 'devise'
 #gem 'ruby-debug-base19x'
 #gem 'ruby-debug-ide' #'0.4.6'
 gem 'debugger'
+
+# Paperclip gem for image upload
+gem 'paperclip'
+gem 'rmagick'

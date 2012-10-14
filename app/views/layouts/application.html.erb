@@ -45,21 +45,25 @@
     </div>
   </div>
 </div>
+
+<!-- Flash notice -->
+<div class="container">
+    <% if !flash[:notice].blank? %>
+        <div class="alert alert-success">
+          <!--p class="text-success"-->
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= flash[:notice] %>
+          <!--/p-->
+        </div>
+    <% end %>
+</div>
+
 <!-- BODY -->
 <div class="container">
   <div id="main" class="row-fluid">
     <div class="span12">
       <div id="content" class="hero-unit">
         <%= yield %>
-        <!--Display notices in body using flash-->
-        <% if !flash[:notice].blank? %>
-            <div class="alert alert-success">
-              <!--p class="text-success"-->
-              <button type="button" class="close" data-dismiss="alert">&times;</button>
-              <%= flash[:notice] %>
-              <!--/p-->
-            </div>
-        <% end %>
       </div>
     </div>
   </div>
@@ -67,8 +71,8 @@
 
 
 <div id="footer" class="container">
-  <%= debug(params) if Rails.env.development? %>
-  <p id="copyright">&copy; Bob the builders - MS Software Management @ CMU SV</p>
+  <%= debug(params) if Rails.env.test? %>
+  <p id="copyright" style="color: white;">&copy; Bob the builders - MS Software Management @ CMU SV</p>
 </div>
 </body>
 </html>

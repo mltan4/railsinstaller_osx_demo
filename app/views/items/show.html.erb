@@ -7,52 +7,58 @@
     <li class="active"><%= @item.title %></li>
   </ul>
   <tr>
-    <td class="span9">
-      <ul class="thumbnails">
-        <li class="span12">
-          <div class="thumbnail grey-bkg">
-            <%=  image_tag("items/"+@item.id.to_s+".jpeg") %>
-          </div>
-        </li>
-      </ul>
+    <td style="width: 30%;">
+      <div id="myCarousel" class="carousel slide" style="vertical-align: middle;">
+        <div class="carousel-inner">
+          <% @item.item_images.each do |image| %>
+            <% if image == @item.item_images.first %>
+              <!-- Carousel active item -->
+              <div class="active item"><%= image_tag(image.asset.url(:original)) %></div>
+            <% else %>
+              <!-- Carousel items -->
+              <div class="item"><%= image_tag(image.asset.url(:original)) %></div>
+            <% end %>
+          <% end %>
+        </div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+      </div>
     </td>
-    <td>
-      <h2><%= @item.display_title %></h2>
-      <div class="well well-large" style="width: 150px">
+    <td style="width: 40%;">
+      <div class="breadcrumb" style="height: 260px;">
+        <h2><%= @item.display_title %></h2>
+        <small>(Quantity:<%= @item.quantity %>)</small>
+        <br><br>
         <!--Shows the bid end date as words using the function below-->
-        Bidding ends in <%= distance_of_time_in_words_to_now(@item_end_date) %>!
-        <br>
+        <span class="label label-inverse" style="font-size: 14px;">Bidding ends in <%= distance_of_time_in_words_to_now(@item_end_date) %>!</span>
         <% if @item.current_bid >= 0   %>
             <!--TODO: [ <= @item.bids %> bids ]-->
-            [ <a href = "example.com">3 bids</a> ]
+            <br><br>
+            <h5>Bidding History: [ <a href = "example.com">3 bids</a> ]</h5>
             <br>
-            <strong>Current Bid:</strong> $<%= @item.current_bid %>
-            <br>
-            <br>
+            <h5>Current Bid: $<%= @item.current_bid %></h5>
             <!--Button for placing bid-->
             <form class="form-inline">
-              <input type="text" class="input-small" placeholder="Your Bid">
+              <input type="text" class="input-large" placeholder="Minimum bid is $<%= @item.minimum_bid_price %>">
               <button type="submit" class="btn btn-success">Bid</button>
             </form>
-            <small>(Minimum bid is $<%= @item.minimum_bid_price %>)</small>
-            <br>
         <% end %>
-        <br>
         <% if @item.buy_price > 0   %>
             <!--TODO: Buy price should have a boolean :enabled-->
             <!--If buy it now is enabled, show the button to buy it now-->
             <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
                 <button class="btn btn-warning buy-now-button">Buy Now for $<%= @item.buy_price %>!</button>
             <% end %>
-            <small>(Quantity:<%= @item.quantity %>)</small>
         <% end %>
       </div>
     </td>
-    <td>
-      <div class="well well-large">
-      Seller information:
+    <td style="width: 30%;">
+      <div class="breadcrumb" style="height: 260px;">
+      <br>
+      <h5>Seller information:
         <!--TODO: Add seller username when creating a new item-->
-      <a href="example.com">gerryCool68</a>
+      <a href="example.com">gerryCool68</a></h5>
         <!--TODO: Add seller rating to migration-->
         <!--<TODO: (1..@seller.rating).each do %>-->
         <br>
@@ -65,10 +71,10 @@
 <table>
   <tr>
     <td>
-      <div class="well well-large">
-        <h2>Description:</h2>
+      <div class="breadcrumb">
+        <h4>Description:</h4>
 
-        <p><%= @item.description %> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum egestas ultricies. Mauris nibh velit, vehicula eu dapibus non, pharetra eu purus. Donec est risus, ultricies ut egestas id, ultrices ut enim. Aliquam eget libero nisi, vitae molestie lorem. Phasellus laoreet purus vel risus gravida eget porttitor libero scelerisque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut vitae nibh velit, quis facilisis justo. Cras vitae diam et quam euismod luctus in ut enim. Phasellus luctus ligula at orci facilisis non facilisis purus commodo. Proin gravida nunc vel nulla ornare ut dapibus lorem rutrum.</p>
+        <p class="content-text"><%= @item.description %> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum egestas ultricies. Mauris nibh velit, vehicula eu dapibus non, pharetra eu purus. Donec est risus, ultricies ut egestas id, ultrices ut enim. Aliquam eget libero nisi, vitae molestie lorem. Phasellus laoreet purus vel risus gravida eget porttitor libero scelerisque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut vitae nibh velit, quis facilisis justo. Cras vitae diam et quam euismod luctus in ut enim. Phasellus luctus ligula at orci facilisis non facilisis purus commodo. Proin gravida nunc vel nulla ornare ut dapibus lorem rutrum.</p>
       </div>
     </td>
   </tr>
