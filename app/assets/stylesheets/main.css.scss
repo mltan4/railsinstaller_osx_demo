@@ -12,9 +12,13 @@ body { padding-top: 60px;
 .sidebar-nav { padding: 9px 0; }
 
 .navbar-inner {
-  background-color: #9F111B; /* background color will be black for all browsers */
-  background-image: none;
-  background-repeat: no-repeat;
+  //background-color: #F89406; /* background color will be black for all browsers */
+  //background-image: none;
+  //background-repeat: no-repeat;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FBB450), to(#F89406));
+  background-color: #F9A732;
+  border-color: #F89406 #F89406 #AD6704;
+  background-repeat: repeat-x;
   filter: none;
 }
 
