@@ -23,14 +23,13 @@
       <div class="nav-collapse collapse">
         <p class="navbar-text pull-right">
           <!--Display sign-in and sign-out links with styling using Devise gem for session management-->
-        <% if user_signed_in? %>
-            Signed in as <%= current_user.email %>. Not You?
-              <!--TODO: Add {:style=>'color:#FFFFFF;'} to "Sign Out"-->
-            <%= link_to "Sign Out", destroy_user_session_path,:method =>:delete %>
-        <% else %>
-            <%= link_to "Sign Up", new_user_registration_path, {:style=>'color:#FFFFFF;'} %> or <%= link_to "Sign In", new_user_session_path, {:style=>'color:#FFFFFF;'} %>
-        <% end %>
-        </p>
+        <!--< if user_signed_in? %>-->
+            <!--Signed in as <= current_user.email %>. Not You?-->
+              <!--&lt;!&ndash;TODO: Add {:style=>'color:#FFFFFF;'} to "Sign Out"&ndash;&gt;-->
+            <!--<= link_to "Sign Out", destroy_user_session_path,:method =>:delete %>-->
+        <!--< else %>-->
+            <!--<= link_to "Sign Up", new_user_registration_path, {:style=>'color:#FFFFFF;'} %> or <%= link_to "Sign In", new_user_session_path, {:style=>'color:#FFFFFF;'} %>-->
+        <!--< end %>-->
         <!--
         <p class="navbar-text pull-right">
           Logged in as <a href="#" class="navbar-link">Andres Ramirez</a>

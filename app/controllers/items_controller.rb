@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  #before_filter :signed_in_user
   # GET /items
   # GET /items.json
   def index
@@ -107,4 +108,21 @@ class ItemsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  def place_bid
+    if params["current_bid"] >= :minimum_bid_price  #need this bid to be greater than current and minimum bid
+      format.html { redirect_to @item, notice: 'Item bid placed.' }
+      format.json { head :no_content }
+    else # Search by parameters
+      format.html { redirect_to @item, notice: 'Item bid not placed.' }
+      format.json { head :no_content }
+    end
+
+    #TODO: Control blank search
+    #if params["item_title"] && params["category_id"] == nil
+    #  @items = Item.search_item_by_title("")
+    #end
+  end
+
 end
