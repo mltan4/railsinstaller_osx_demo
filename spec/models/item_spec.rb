@@ -13,7 +13,6 @@ describe Item do
   end
 
   it { should be_valid }
-  it { respond_to}
 
   describe "relationship"
     it "should belong to a category" do
@@ -22,7 +21,7 @@ describe Item do
 
   describe "when category_id is not present" do
     before { @item.category_id = nil }
-    xit { should_not be_valid }
+    #xit { should_not be_valid }
   end
 
   describe "item methods" do
@@ -34,7 +33,6 @@ describe Item do
     it { should respond_to(:quantity) }
     it { should respond_to(:title) }
     it { should respond_to(:display_title) }
-    it { should respond_to(:category) }
+    it { should respond_to (:current_bidder_id) } #id of the current bidder
   end
-
 end

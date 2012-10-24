@@ -45,7 +45,6 @@
             </form>
         <% end %>
         <% if @item.buy_price > 0   %>
-            <!--TODO: Buy price should have a boolean :enabled-->
             <!--If buy it now is enabled, show the button to buy it now-->
             <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
                 <button class="btn btn-warning buy-now-button">Buy Now for $<%= @item.buy_price %>!</button>
