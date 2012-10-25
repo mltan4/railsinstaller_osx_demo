@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121010003222) do
+ActiveRecord::Schema.define(:version => 20121024171752) do
 
   create_table "categories", :force => true do |t|
     t.string   "title"
@@ -19,19 +19,33 @@ ActiveRecord::Schema.define(:version => 20121010003222) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "item_images", :force => true do |t|
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "asset_file_name"
+    t.string   "asset_content_type"
+    t.integer  "asset_file_size"
+    t.datetime "asset_updated_at"
+    t.integer  "item_id"
+  end
+
   create_table "items", :force => true do |t|
     t.string   "title"
     t.integer  "category_id"
     t.integer  "quantity"
     t.text     "description"
-    t.decimal  "buy_price",         :precision => 10, :scale => 0
+    t.decimal  "buy_price",         :precision => 10, :scale => 0, :default => 0
     t.decimal  "minimum_bid_price", :precision => 10, :scale => 0
     t.integer  "bid_duration"
     t.datetime "created_at",                                                      :null => false
     t.datetime "updated_at",                                                      :null => false
     t.string   "display_title"
     t.integer  "current_bid",                                      :default => 0
+    t.integer  "status"
+    t.integer  "current_bidder_id",                                :default => 0
   end
+
+  add_index "items", ["title"], :name => "title_UNIQUE", :unique => true
 
   create_table "models", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

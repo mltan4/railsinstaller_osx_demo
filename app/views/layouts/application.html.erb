@@ -10,6 +10,7 @@
 </head>
 <body>
 <!-- HEADER -->
+<!--Using the Bootstrap navbar class-->
 <div class="navbar navbar-inner navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
@@ -21,13 +22,14 @@
       <a class="brand" href="#">BestBay</a>
       <div class="nav-collapse collapse">
         <p class="navbar-text pull-right">
-        <% if user_signed_in? %>
-            Signed in as <%= current_user.email %>. Not You?
-            <%= link_to "Sign Out", destroy_user_session_path,{:style=>'color:#FFFFFF;'}, :method =>:delete %>
-        <% else %>
-            <%= link_to "Sign Up", new_user_registration_path, {:style=>'color:#FFFFFF;'} %> or <%= link_to "Sign In", new_user_session_path, {:style=>'color:#FFFFFF;'} %>
-        <% end %>
-        </p>
+          <!--Display sign-in and sign-out links with styling using Devise gem for session management-->
+        <!--< if user_signed_in? %>-->
+            <!--Signed in as <= current_user.email %>. Not You?-->
+              <!--&lt;!&ndash;TODO: Add {:style=>'color:#FFFFFF;'} to "Sign Out"&ndash;&gt;-->
+            <!--<= link_to "Sign Out", destroy_user_session_path,:method =>:delete %>-->
+        <!--< else %>-->
+            <!--<= link_to "Sign Up", new_user_registration_path, {:style=>'color:#FFFFFF;'} %> or <%= link_to "Sign In", new_user_session_path, {:style=>'color:#FFFFFF;'} %>-->
+        <!--< end %>-->
         <!--
         <p class="navbar-text pull-right">
           Logged in as <a href="#" class="navbar-link">Andres Ramirez</a>
@@ -42,20 +44,25 @@
     </div>
   </div>
 </div>
+
+<!-- Flash notice -->
+<div class="container">
+    <% if !flash[:notice].blank? %>
+        <div class="alert alert-success">
+          <!--p class="text-success"-->
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= flash[:notice] %>
+          <!--/p-->
+        </div>
+    <% end %>
+</div>
+
 <!-- BODY -->
 <div class="container">
   <div id="main" class="row-fluid">
     <div class="span12">
       <div id="content" class="hero-unit">
         <%= yield %>
-        <% if !flash[:notice].blank? %>
-            <div class="alert alert-success">
-              <!--p class="text-success"-->
-              <button type="button" class="close" data-dismiss="alert">&times;</button>
-              <%= flash[:notice] %>
-              <!--/p-->
-            </div>
-        <% end %>
       </div>
     </div>
   </div>
@@ -64,7 +71,7 @@
 
 <div id="footer" class="container">
   <%= debug(params) if Rails.env.development? %>
-  <p id="copyright">&copy; Bob the builders - MS Software Management @ CMU SV</p>
+  <p id="copyright" style="color: white;">&copy; Bob the builders - MS Software Management @ CMU SV</p>
 </div>
 </body>
 </html>

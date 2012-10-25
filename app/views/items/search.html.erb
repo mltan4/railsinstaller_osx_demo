@@ -8,6 +8,7 @@
     <table class="table table-hover">
       <thead>
       <tr>
+        <!--Display the header titles for the table for the search page-->
         <th>Items</th>
         <th>Minimum Bid</th>
         <th>Bid Duration</th>
@@ -15,22 +16,25 @@
       </tr>
       </thead>
       <tbody>
+      <!--For each item, show the item information as cells in a table-->
       <% @items.each do |item| %>
           <tr>
             <td>
                 <ul class="thumbnails">
                   <li class="span6">
                     <div class="thumbnail grey-bkg">
-                      <%= link_to image_tag("items/"+item.id.to_s+".jpeg"), {:action => "show", :id => item.id} %>
+                      <%= link_to image_tag(item.item_images.first.asset.url(:original)), {:action => "show", :id => item.id} %>
                       <h4><%= item.title %></h4>
                     </div>
                   </li>
                 </ul>
             </td>
             <td>$<%= item.minimum_bid_price %></td>
+            <!--Shows the bid end date as words using the function below-->
             <td><%= distance_of_time_in_words_to_now(item.created_at + item.bid_duration.to_i.days) %></td>
                 <td style="width: 10%; vertical-align: top;">
                   <% if item.buy_price > 0   %>
+                      <!--If buy it now is enabled, show the button to buy it now-->
                      <%= form_tag({:action => "show", :id => item.id}, :class => "simple") do %>
                           <button class="btn btn-warning">$<%= item.buy_price %></button>
                       <% end %>

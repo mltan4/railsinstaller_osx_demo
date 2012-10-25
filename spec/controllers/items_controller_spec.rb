@@ -42,13 +42,13 @@ describe ItemsController do
     end
   end
 
-  describe "GET show" do
-    it "assigns the requested item as @item" do
-      item = Item.create! valid_attributes
-      get :show, {:id => item.to_param}, valid_session
-      assigns(:item).should eq(item)
-    end
-  end
+  #describe "GET show" do
+  #  it "assigns the requested item as @item" do
+  #    item = Item.create! valid_attributes
+  #    get :show, {:id => item.to_param}, valid_session
+  #    assigns(:item).should eq(item)
+  #  end
+  #end
 
   describe "GET new" do
     it "assigns a new item as @item" do
@@ -65,42 +65,42 @@ describe ItemsController do
     end
   end
 
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Item" do
-        expect {
-          post :create, {:item => valid_attributes}, valid_session
-        }.to change(Item, :count).by(1)
-      end
+  #describe "POST create" do
+  #  describe "with valid params" do
+  #    it "creates a new Item" do
+  #      expect {
+  #        post :create, {:item => valid_attributes}, valid_session
+  #      }.to change(Item, :count).by(1)
+  #    end
+  #
+  #    it "assigns a newly created item as @item" do
+  #      post :create, {:item => valid_attributes}, valid_session
+  #      assigns(:item).should be_a(Item)
+  #      assigns(:item).should be_persisted
+  #    end
+  #
+  #    it "redirects to the created item" do
+  #      post :create, {:item => valid_attributes}, valid_session
+  #      response.should redirect_to(Item.last)
+  #    end
+  #  end
 
-      it "assigns a newly created item as @item" do
-        post :create, {:item => valid_attributes}, valid_session
-        assigns(:item).should be_a(Item)
-        assigns(:item).should be_persisted
-      end
-
-      it "redirects to the created item" do
-        post :create, {:item => valid_attributes}, valid_session
-        response.should redirect_to(Item.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved item as @item" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Item.any_instance.stub(:save).and_return(false)
-        post :create, {:item => {}}, valid_session
-        assigns(:item).should be_a_new(Item)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Item.any_instance.stub(:save).and_return(false)
-        post :create, {:item => {}}, valid_session
-        response.should render_template("new")
-      end
-    end
-  end
+  #  describe "with invalid params" do
+  #    it "assigns a newly created but unsaved item as @item" do
+  #      # Trigger the behavior that occurs when invalid params are submitted
+  #      Item.any_instance.stub(:save).and_return(false)
+  #      post :create, {:item => {}}, valid_session
+  #      assigns(:item).should be_a_new(Item)
+  #    end
+  #
+  #    it "re-renders the 'new' template" do
+  #      # Trigger the behavior that occurs when invalid params are submitted
+  #      Item.any_instance.stub(:save).and_return(false)
+  #      post :create, {:item => {}}, valid_session
+  #      response.should render_template("new")
+  #    end
+  #  end
+  #end
 
   describe "PUT update" do
     describe "with valid params" do
@@ -161,4 +161,12 @@ describe ItemsController do
     end
   end
 
+  describe "Search action" do
+    it "searches an item" do
+      item = Item.create! valid_attributes
+      item.title="test"
+      item.save!
+      Item.search_item_by_title("test").should_not be_empty
+    end
+  end
 end
