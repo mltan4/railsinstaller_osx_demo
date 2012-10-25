@@ -50,7 +50,7 @@
         <% end %>
 
         <% if @item.buy_price > 0   %>
-            <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
+            <%= form_tag({:controller => "items", :action => "buy_now", :id => @item.id}, :class => "simple") do %>
                 <button class="btn btn-warning buy-now-button">Buy Now for $<%= @item.buy_price %>!</button>
             <% end %>
         <% end %>

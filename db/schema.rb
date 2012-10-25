@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013011550) do
+ActiveRecord::Schema.define(:version => 20121024164859) do
 
   create_table "categories", :force => true do |t|
     t.string   "title"
@@ -34,14 +34,17 @@ ActiveRecord::Schema.define(:version => 20121013011550) do
     t.integer  "category_id"
     t.integer  "quantity"
     t.text     "description"
-    t.decimal  "buy_price",         :precision => 10, :scale => 0
+    t.decimal  "buy_price",         :precision => 10, :scale => 0, :default => 0
     t.decimal  "minimum_bid_price", :precision => 10, :scale => 0
     t.integer  "bid_duration"
     t.datetime "created_at",                                                      :null => false
     t.datetime "updated_at",                                                      :null => false
     t.string   "display_title"
     t.integer  "current_bid",                                      :default => 0
+    t.integer  "status"
   end
+
+  add_index "items", ["title"], :name => "title_UNIQUE", :unique => true
 
   create_table "models", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -60,16 +63,6 @@ ActiveRecord::Schema.define(:version => 20121013011550) do
 
   add_index "models", ["email"], :name => "index_models_on_email", :unique => true
   add_index "models", ["reset_password_token"], :name => "index_models_on_reset_password_token", :unique => true
-
-  create_table "uploads", :force => true do |t|
-    t.string   "upload_file_name"
-    t.string   "upload_content_type"
-    t.integer  "upload_file_size"
-    t.datetime "upload_updated_at"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-    t.integer  "item_id"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

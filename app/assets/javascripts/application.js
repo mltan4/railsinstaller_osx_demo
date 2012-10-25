@@ -14,3 +14,15 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+
+// Enable/Disable Search button
+$(document).ready(function(){
+    $(".search_disable_btn").attr("disabled", "true");
+    $(".search_disable").keyup(function(){
+        if ($(this).val() != "") {
+            $(".search_disable_btn").removeAttr("disabled");
+        } else {
+            $(".search_disable_btn").attr("disabled", "true");
+        }
+    });
+});

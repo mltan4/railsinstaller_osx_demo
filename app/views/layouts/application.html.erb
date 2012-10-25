@@ -48,12 +48,16 @@
 <div class="container">
     <% if !flash[:notice].blank? %>
         <div class="alert alert-success">
-          <!--p class="text-success"-->
           <button type="button" class="close" data-dismiss="alert">&times;</button>
           <%= flash[:notice] %>
-          <!--/p-->
         </div>
     <% end %>
+    <% if !flash[:alert].blank? %>
+      <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:alert] %>
+      </div>
+  <% end %>
 </div>
 
 <!-- BODY -->
