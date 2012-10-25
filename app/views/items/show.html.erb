@@ -39,8 +39,8 @@
             <br>
             <h5>Current Bid: $<%= @item.current_bid %></h5>
             <!--Button for placing bid-->
-            <%= form_tag({:controller => "items", :action => "place_bid"}, :class => "simple") do %>
-                <%= text_field_tag "current_bid", 0, :placeholder => "Minimum bid is $55", :class => "place_bid"%>
+            <%= form_tag({:controller => "items", :action => "place_bid", :id=> @item.id }, :class => "simple") do %>
+                <%= text_field_tag "current_bid","Minimum bid is " + @item.minimum_bid_price.to_s%>
             <!--<form class="form-inline">-->
               <!--<input type="text" class="input-large" placeholder="Minimum bid is $<%= @item.minimum_bid_price %>">-->
               <button type="submit" class="btn btn-success">Bid</button>

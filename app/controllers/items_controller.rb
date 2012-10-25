@@ -111,14 +111,25 @@ class ItemsController < ApplicationController
 
 
   def place_bid
-    if params["current_bid"] >= :minimum_bid_price  #need this bid to be greater than current and minimum bid
-      format.html { redirect_to @item, notice: 'Item bid placed.' }
-      format.json { head :no_content }
+    @item = Item.find(params[:id])
+    @category = Category.find(@item.category_id)
+    @item_end_date = @item.created_at + @item.bid_duration.to_i.days
+
+    #if ((Integer(params["current_bid"]) >= @items.  #need this bid to be greater than current and minimum bid@item.minimum_bid_price
+
+
+    #self.show
+
+
+    @current_bid = params["current_bid"]
+    if ((Integer(@current_bid) >= @item.minimum_bid_price) && (Integer(@current_bid) >=@item.current_bid))  #need this bid to be greater than current and minimum bid
+      @item.current_bid =  @current_bid
+      @item.save!
     else # Search by parameters
-      format.html { redirect_to @item, notice: 'Item bid not placed.' }
-      format.json { head :no_content }
+      puts("CURRENT_BID_FAILED")
     end
 
+    render("show")
     #TODO: Control blank search
     #if params["item_title"] && params["category_id"] == nil
     #  @items = Item.search_item_by_title("")
