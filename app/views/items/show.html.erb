@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
-
-<table>
+<script>
+    $(document).ready(function(){
+        $('.carousel').carousel({
+            interval: 0
+        });
+    });
+</script>
+<table style="width: 100%;">
   <ul class="breadcrumb">
     <li><a href="#">Home</a> <span class="divider">/</span></li>
     <li><a href="#"><%= @category.title %></a> <span class="divider">/</span></li>
@@ -49,7 +55,7 @@
         <% end %>
         <% if @item.buy_price > 0   %>
             <!--If buy it now is enabled, show the button to buy it now-->
-            <%= form_tag({:controller => "items", :action => "new"}, :class => "simple") do %>
+            <%= form_tag({:controller => "items", :action => "buy_now", :id => @item.id}, :class => "simple") do %>
                 <button class="btn btn-warning buy-now-button">Buy Now for $<%= @item.buy_price %>!</button>
             <% end %>
         <% end %>

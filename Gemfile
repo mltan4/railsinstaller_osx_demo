@@ -60,3 +60,6 @@ gem 'debugger'
 # Paperclip gem for image upload
 gem 'paperclip'
 gem 'rmagick'
+
+# Rails Scheduler
+gem 'rufus-scheduler'

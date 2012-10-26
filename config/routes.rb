@@ -6,7 +6,6 @@ BestBay::Application.routes.draw do
 
   get "welcome/index"
   get "items/search"
-  #match 'items/search' => 'items#search'
 
   resources :categories
   resources :items

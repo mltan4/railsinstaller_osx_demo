@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-  #before_filter :signed_in_user
+  before_filter :authenticate_user!
+  skip_before_filter :authenticate_user!, :only=> [:index, :show, :search]
+
   # GET /items
   # GET /items.json
   def index
@@ -107,6 +109,32 @@ class ItemsController < ApplicationController
       format.html { redirect_to items_url }
       format.json { head :no_content }
     end
+  end
+
+  def buy_now
+    puts("TRYING BUY NOW!!!")
+    @item = Item.find(params[:id])
+    puts("AAAAAA")
+    puts(current_user.id)
+    puts("BBBBBB")
+    @item.current_bidder_id = current_user.id
+    @item.status = 2
+    @item.save
+  end
+
+  def close_expired_bids
+    puts ("testing exp 1")
+    @expired_items = Item.find_by_sql("select * from btb_bestbay_development.items i where TIMESTAMPADD(DAY,i.bid_duration,i.created_at) < NOW() AND i.status = 1;")
+    puts ("testing exp 2")
+    puts(@expired_items.count)
+    puts ("testing exp 3")
+
+    @expired_items.each do |item|
+      item.status = 4
+      item.save
+      puts ("done")
+    end
+
   end
 
 
