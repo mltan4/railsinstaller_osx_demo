@@ -119,7 +119,7 @@ class ItemsController < ApplicationController
 
   def close_expired_bids
     puts ("testing exp 1")
-    @expired_items = Item.find_by_sql("select * from btb_bestbay_development.items i where TIMESTAMPADD(DAY,i.bid_duration,i.created_at) < NOW();")
+    @expired_items = Item.find_by_sql("select * from btb_bestbay_development.items i where TIMESTAMPADD(DAY,i.bid_duration,i.created_at) < NOW() AND i.status = 1;")
     puts ("testing exp 2")
     puts(@expired_items.count)
     puts ("testing exp 3")
