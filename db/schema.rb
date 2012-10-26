@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121024164859) do
+ActiveRecord::Schema.define(:version => 20121024171752) do
 
   create_table "categories", :force => true do |t|
     t.string   "title"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20121024164859) do
     t.string   "display_title"
     t.integer  "current_bid",                                      :default => 0
     t.integer  "status"
+    t.integer  "current_bidder_id",                                :default => 0
   end
 
   add_index "items", ["title"], :name => "title_UNIQUE", :unique => true

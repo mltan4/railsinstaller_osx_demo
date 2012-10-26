@@ -31,9 +31,11 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    #Shows the item as identified by the id parameter
     @item = Item.find(params[:id])
     @category = Category.find(@item.category_id)
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
+    #Want to have seller information available, but require a new DB migration
     #TODO: @seller = User.find_by_item_id(@item.id)
     respond_to do |format|
       format.html # show.html.erb
@@ -44,7 +46,9 @@ class ItemsController < ApplicationController
   # GET /items/new
   # GET /items/new.json
   def new
+    #Creates new item
     @item = Item.new
+    #Store categories in categories variable for processing
     @categories = Category.all #<!-- added this -->
 
     4.times {@item.item_images.build}
@@ -66,6 +70,7 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(params[:item])
+    #Create a new item, store the title downcase for DB for searching
     @item.title = @item.display_title.downcase
     respond_to do |format|
       if @item.save
@@ -131,4 +136,32 @@ class ItemsController < ApplicationController
     end
 
   end
+
+
+  def place_bid
+    @item = Item.find(params[:id])
+    @category = Category.find(@item.category_id)
+    @item_end_date = @item.created_at + @item.bid_duration.to_i.days
+
+    #if ((Integer(params["current_bid"]) >= @items.  #need this bid to be greater than current and minimum bid@item.minimum_bid_price
+
+
+    #self.show
+
+
+    @current_bid = params["current_bid"]
+    if ((Integer(@current_bid) >= @item.minimum_bid_price) && (Integer(@current_bid) >=@item.current_bid))  #need this bid to be greater than current and minimum bid
+      @item.current_bid =  @current_bid
+      @item.save!
+    else # Search by parameters
+      puts("CURRENT_BID_FAILED")
+    end
+
+    render("show")
+    #TODO: Control blank search
+    #if params["item_title"] && params["category_id"] == nil
+    #  @items = Item.search_item_by_title("")
+    #end
+  end
+
 end

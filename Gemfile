@@ -15,8 +15,6 @@ group :production do
   gem 'pg'
 end
 
-
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -50,7 +48,8 @@ gem 'jquery-rails'
 gem 'bootstrap-sass', '2.0.4'
 
 #suggested gems by Todd
-gem 'factory_girl_rails' 
+gem 'factory_girl_rails'
+gem 'capybara', '1.1.2'
 gem 'rspec-rails' 
 gem 'devise' 
 #gem 'ruby-debug19'

@@ -36,6 +36,7 @@
         <h2><%= @item.display_title %></h2>
         <small>(Quantity:<%= @item.quantity %>)</small>
         <br><br>
+        <!--Shows the bid end date as words using the function below-->
         <span class="label label-inverse" style="font-size: 14px;">Bidding ends in <%= distance_of_time_in_words_to_now(@item_end_date) %>!</span>
         <% if @item.current_bid >= 0   %>
             <!--TODO: [ <= @item.bids %> bids ]-->
@@ -43,13 +44,17 @@
             <h5>Bidding History: [ <a href = "example.com">3 bids</a> ]</h5>
             <br>
             <h5>Current Bid: $<%= @item.current_bid %></h5>
-            <form class="form-inline">
-              <input type="text" class="input-large" placeholder="Minimum bid is $<%= @item.minimum_bid_price %>">
+            <!--Button for placing bid-->
+            <%= form_tag({:controller => "items", :action => "place_bid", :id=> @item.id }, :class => "simple") do %>
+                <%= text_field_tag "current_bid","Minimum bid is " + @item.minimum_bid_price.to_s%>
+            <!--<form class="form-inline">-->
+              <!--<input type="text" class="input-large" placeholder="Minimum bid is $<%= @item.minimum_bid_price %>">-->
               <button type="submit" class="btn btn-success">Bid</button>
-            </form>
+            <!--</form>-->
+                <% end %>
         <% end %>
-
         <% if @item.buy_price > 0   %>
+            <!--If buy it now is enabled, show the button to buy it now-->
             <%= form_tag({:controller => "items", :action => "buy_now", :id => @item.id}, :class => "simple") do %>
                 <button class="btn btn-warning buy-now-button">Buy Now for $<%= @item.buy_price %>!</button>
             <% end %>
@@ -64,6 +69,7 @@
       <a href="example.com">gerryCool68</a></h5>
         <!--TODO: Add seller rating to migration-->
         <!--<TODO: (1..@seller.rating).each do %>-->
+        <br>
         <!--<= TODO: @seller.items_sold %> -->
         [ 3 items sold ]
           </div>
