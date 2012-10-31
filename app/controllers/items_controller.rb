@@ -117,7 +117,7 @@ class ItemsController < ApplicationController
     @current_bid = params["current_bid"]
     if(Integer(@current_bid) < @item.minimum_bid_price)
       flash[:notice] = "Please place a bid higher than $" + @item.minimum_bid_price.to_s
-    elsif(Integer(@current_bid) > @item.buy_price)
+    elsif(Integer(@current_bid) > @item.buy_price && (@item.buy_price > 0))
       flash[:notice] = "Hey, you're bidding way to high! You should \"Buy Now\" instead!"
     elsif ((Integer(@current_bid) >= @item.minimum_bid_price) && (Integer(@current_bid) >=@item.current_bid))  #need this bid to be greater than current and minimum bid
       @item.current_bid =  @current_bid
