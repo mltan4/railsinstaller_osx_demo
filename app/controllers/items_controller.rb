@@ -120,6 +120,8 @@ class ItemsController < ApplicationController
     elsif(Integer(@current_bid) > @item.buy_price && (@item.buy_price > 0))
       flash[:notice] = "Hey, you're bidding way to high! You should \"Buy Now\" instead!"
     elsif ((Integer(@current_bid) >= @item.minimum_bid_price) && (Integer(@current_bid) >=@item.current_bid))  #need this bid to be greater than current and minimum bid
+      @user = User.find(8)
+      UserMailer.welcome_email(@user).deliver
       @item.current_bid =  @current_bid
       @item.minimum_bid_price = Integer(@current_bid) + 1
       @item.save!
