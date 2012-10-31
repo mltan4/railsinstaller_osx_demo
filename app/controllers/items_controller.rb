@@ -114,19 +114,15 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @category = Category.find(@item.category_id)
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
-
-    #if ((Integer(params["current_bid"]) >= @items.  #need this bid to be greater than current and minimum bid@item.minimum_bid_price
-
-
-    #self.show
-
-
     @current_bid = params["current_bid"]
-    if ((Integer(@current_bid) >= @item.minimum_bid_price) && (Integer(@current_bid) >=@item.current_bid))  #need this bid to be greater than current and minimum bid
+    if(Integer(@current_bid) < @item.minimum_bid_price)
+      flash[:notice] = "Please place a bid higher than $" + @item.minimum_bid_price.to_s
+    elsif(Integer(@current_bid) > @item.buy_price)
+      flash[:notice] = "Hey, you're bidding way to high! You should \"Buy Now\" instead!"
+    elsif ((Integer(@current_bid) >= @item.minimum_bid_price) && (Integer(@current_bid) >=@item.current_bid))  #need this bid to be greater than current and minimum bid
       @item.current_bid =  @current_bid
+      @item.minimum_bid_price = Integer(@current_bid) + 1
       @item.save!
-    else # Search by parameters
-      puts("CURRENT_BID_FAILED")
     end
 
     render("show")
