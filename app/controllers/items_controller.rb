@@ -15,10 +15,10 @@ class ItemsController < ApplicationController
 
   def search
     if params["item_title"].to_s.downcase != "" # Search by title
-      @items = Item.search_item_by_title(params["item_title"].to_s.downcase)
+      @items = Item.search_item_by_title(params["item_title"].to_s.downcase,1)
     else # Search by parameters
       if params["category_id"].to_s.downcase != ""
-        @items = Item.where(:category_id => params["category_id"])
+        @items = Item.where(:category_id => params["category_id"], :status => 1)
       end
     end
 
@@ -112,29 +112,25 @@ class ItemsController < ApplicationController
   end
 
   def buy_now
-    puts("TRYING BUY NOW!!!")
     @item = Item.find(params[:id])
-    puts("AAAAAA")
     puts(current_user.id)
-    puts("BBBBBB")
     @item.current_bidder_id = current_user.id
     @item.status = 2
     @item.save
   end
 
   def close_expired_bids
-    puts ("testing exp 1")
-    @expired_items = Item.find_by_sql("select * from btb_bestbay_development.items i where TIMESTAMPADD(DAY,i.bid_duration,i.created_at) < NOW() AND i.status = 1;")
-    puts ("testing exp 2")
-    puts(@expired_items.count)
-    puts ("testing exp 3")
-
-    @expired_items.each do |item|
-      item.status = 4
-      item.save
-      puts ("done")
-    end
-
+    puts ("Lookup for expired items")
+    #@expired_items = Item.find_by_sql("select * from btb_bestbay_development.items i where TIMESTAMPADD(DAY,i.bid_duration,i.created_at) < NOW() AND i.status = 1;")
+    #puts("Expired items found: " + @expired_items.count.to_s)
+    #
+    #@expired_items.each do |item|
+    #  item.status = 4
+    #  item.save
+    #  puts ("Item ID: " + item.id + "updated")
+    #end
+    #TODO: Enable for deliverable!
+    puts ("DISABLED TO AVOID DB OVERHEAD")
   end
 
 
@@ -158,10 +154,6 @@ class ItemsController < ApplicationController
     end
 
     render("show")
-    #TODO: Control blank search
-    #if params["item_title"] && params["category_id"] == nil
-    #  @items = Item.search_item_by_title("")
-    #end
   end
 
 end

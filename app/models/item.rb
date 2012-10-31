@@ -9,5 +9,5 @@ class Item < ActiveRecord::Base
 
   # Functions
   # This is a search function, which queries the database for similar item titles
-  scope :search_item_by_title, lambda {|query| where("title LIKE ?", "%#{query}%")}
+  scope :search_item_by_title, lambda {|query, status| where("status = ?", "#{status}").where("title LIKE ?", "%#{query}%")}
 end
