@@ -35,6 +35,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @category = Category.find(@item.category_id)
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
+#    @seller = User.find(@item.seller_id)
     #Want to have seller information available, but require a new DB migration
     #TODO: @seller = User.find_by_item_id(@item.id)
     respond_to do |format|
@@ -50,6 +51,8 @@ class ItemsController < ApplicationController
     @item = Item.new
     #Store categories in categories variable for processing
     @categories = Category.all #<!-- added this -->
+    @item.seller_id = current_user.id
+    @item.save!
 
     4.times {@item.item_images.build}
 
@@ -70,17 +73,17 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(params[:item])
-    if (@item != nil)
-      #Create a new item, store the title downcase for DB for searching
+    #Create a new item, store the title downcase for DB for searching
+    if params[:item] != {}
       @item.title = @item.display_title.downcase
-      respond_to do |format|
-        if @item.save
-          format.html { redirect_to @item, notice: 'Item was successfully created.' }
-          format.json { render json: @item, status: :created, location: @item }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @item.errors, status: :unprocessable_entity }
-        end
+    end
+    respond_to do |format|
+      if @item.save
+        format.html { redirect_to @item, notice: 'Item was successfully created.' }
+        format.json { render json: @item, status: :created, location: @item }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -117,6 +120,10 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     puts(current_user.id)
     @item.current_bidder_id = current_user.id
+    @buyer_user = User.find(@item.current_bidder_id)
+    @seller_user = User.find(@item.seller_id)
+    UserMailer.welcome_email(@buyer_user).deliver
+    UserMailer.welcome_email(@seller_user).deliver
     @item.status = 2
     @item.save
   end
@@ -140,19 +147,18 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @category = Category.find(@item.category_id)
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
-
-    #if ((Integer(params["current_bid"]) >= @items.  #need this bid to be greater than current and minimum bid@item.minimum_bid_price
-
-
-    #self.show
-
-
     @current_bid = params["current_bid"]
-    if ((Integer(@current_bid) >= @item.minimum_bid_price) && (Integer(@current_bid) >=@item.current_bid))  #need this bid to be greater than current and minimum bid
+    if(Integer(@current_bid) < @item.minimum_bid_price)
+      flash[:notice] = "Please place a bid higher than $" + @item.minimum_bid_price.to_s
+    elsif(Integer(@current_bid) > @item.buy_price && (@item.buy_price > 0))
+      flash[:notice] = "Hey, you're bidding way to high! You should \"Buy Now\" instead!"
+    elsif ((Integer(@current_bid) >= @item.minimum_bid_price) && (Integer(@current_bid) >=@item.current_bid))  #need this bid to be greater than current and minimum bid
+      @user = User.find(@item.current_bidder_id)
+      UserMailer.welcome_email(@user).deliver
       @item.current_bid =  @current_bid
+      @item.minimum_bid_price = Integer(@current_bid) + 1
+      @item.current_bidder_id = current_user.id
       @item.save!
-    else # Search by parameters
-      puts("CURRENT_BID_FAILED")
     end
 
     render("show")

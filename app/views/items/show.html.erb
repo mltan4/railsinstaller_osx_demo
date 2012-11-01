@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 <script>
     $(document).ready(function(){
         $('.carousel').carousel({
@@ -46,11 +45,8 @@
             <h5>Current Bid: $<%= @item.current_bid %></h5>
             <!--Button for placing bid-->
             <%= form_tag({:controller => "items", :action => "place_bid", :id=> @item.id }, :class => "simple") do %>
-                <%= text_field_tag "current_bid","Minimum bid is " + @item.minimum_bid_price.to_s%>
-            <!--<form class="form-inline">-->
-              <!--<input type="text" class="input-large" placeholder="Minimum bid is $<%= @item.minimum_bid_price %>">-->
+                <%= text_field_tag "current_bid","Minimum bid is $" + @item.minimum_bid_price.to_s%>
               <button type="submit" class="btn btn-success">Bid</button>
-            <!--</form>-->
                 <% end %>
         <% end %>
         <% if @item.buy_price > 0   %>
@@ -66,7 +62,7 @@
       <br>
       <h5>Seller information:
         <!--TODO: Add seller username when creating a new item-->
-      <a href="example.com">gerryCool68</a></h5>
+      <a href="example.com"><%= @item.seller_id %></a></h5>
         <!--TODO: Add seller rating to migration-->
         <!--<TODO: (1..@seller.rating).each do %>-->
         <br>

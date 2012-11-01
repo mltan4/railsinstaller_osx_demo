@@ -74,7 +74,7 @@
 
 
 <div id="footer" class="container">
-  <%= debug(params) if Rails.env.test? %>
+  <%= debug(params) if Rails.env.development? %>
   <p id="copyright" style="color: white;">&copy; Bob the builders - MS Software Management @ CMU SV</p>
 </div>
 </body>

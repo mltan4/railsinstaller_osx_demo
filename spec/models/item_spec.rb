@@ -10,14 +10,20 @@ describe Item do
     @item.title= "test"
     @item.minimum_bid_price= 15
     @item.quantity= 1
+    @item.current_bid = 100
   end
 
   it { should be_valid }
 
-  describe "relationship"
+  describe "relationships" do
     it "should belong to a category" do
       @item.is_a?(Category)
     end
+
+    it "should belong to a user" do
+      @item.is_a?(User)
+    end
+  end
 
   describe "when category_id is not present" do
     before { @item.category_id = nil }
@@ -34,5 +40,7 @@ describe Item do
     it { should respond_to(:title) }
     it { should respond_to(:display_title) }
     it { should respond_to (:current_bidder_id) } #id of the current bidder
+    it { should respond_to (:current_bid)} #current bidder
+    it { should respond_to (:seller_id)} #current bidder
   end
 end
