@@ -165,8 +165,9 @@ describe ItemsController do
     it "searches an item" do
       item = Item.create! valid_attributes
       item.title="test"
+      item.status = 1
       item.save!
-      Item.search_item_by_title("test").should_not be_empty
+      Item.search_item_by_title("test",1).should_not be_empty
     end
   end
 end

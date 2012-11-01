@@ -35,6 +35,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @category = Category.find(@item.category_id)
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
+#    @seller = User.find(@item.seller_id)
     #Want to have seller information available, but require a new DB migration
     #TODO: @seller = User.find_by_item_id(@item.id)
     respond_to do |format|
@@ -50,6 +51,8 @@ class ItemsController < ApplicationController
     @item = Item.new
     #Store categories in categories variable for processing
     @categories = Category.all #<!-- added this -->
+    @item.seller_id = current_user.id
+    @item.save!
 
     4.times {@item.item_images.build}
 
@@ -115,6 +118,10 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     puts(current_user.id)
     @item.current_bidder_id = current_user.id
+    @buyer_user = User.find(@item.current_bidder_id)
+    @seller_user = User.find(@item.seller_id)
+    UserMailer.welcome_email(@buyer_user).deliver
+    UserMailer.welcome_email(@seller_user).deliver
     @item.status = 2
     @item.save
   end
@@ -144,8 +151,11 @@ class ItemsController < ApplicationController
     elsif(Integer(@current_bid) > @item.buy_price && (@item.buy_price > 0))
       flash[:notice] = "Hey, you're bidding way to high! You should \"Buy Now\" instead!"
     elsif ((Integer(@current_bid) >= @item.minimum_bid_price) && (Integer(@current_bid) >=@item.current_bid))  #need this bid to be greater than current and minimum bid
+      @user = User.find(@item.current_bidder_id)
+      UserMailer.welcome_email(@user).deliver
       @item.current_bid =  @current_bid
       @item.minimum_bid_price = Integer(@current_bid) + 1
+      @item.current_bidder_id = current_user.id
       @item.save!
     end
 
