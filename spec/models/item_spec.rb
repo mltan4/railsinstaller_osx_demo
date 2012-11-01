@@ -12,7 +12,6 @@ describe Item do
     @item.quantity= 1
     @item.current_bid = 100
   end
-
   it { should be_valid }
 
   describe "relationships" do
@@ -41,5 +40,6 @@ describe Item do
     it { should respond_to(:display_title) }
     it { should respond_to (:current_bidder_id) } #id of the current bidder
     it { should respond_to (:current_bid)} #current bidder
+    it { should respond_to (:seller_id)} #current bidder
   end
 end
