@@ -33,6 +33,6 @@ describe Item do
     it { should respond_to(:quantity) }
     it { should respond_to(:title) }
     it { should respond_to(:display_title) }
-    it { should respond_to (:current_bidder_id) } #id of the current bidder
+    it { should respond_to(:current_bidder_id) } #id of the current bidder
   end
 end

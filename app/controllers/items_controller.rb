@@ -70,17 +70,17 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(params[:item])
-    if (@item != nil)
-      #Create a new item, store the title downcase for DB for searching
+    #Create a new item, store the title downcase for DB for searching
+    if params[:item] != {}
       @item.title = @item.display_title.downcase
-      respond_to do |format|
-        if @item.save
-          format.html { redirect_to @item, notice: 'Item was successfully created.' }
-          format.json { render json: @item, status: :created, location: @item }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @item.errors, status: :unprocessable_entity }
-        end
+    end
+    respond_to do |format|
+      if @item.save
+        format.html { redirect_to @item, notice: 'Item was successfully created.' }
+        format.json { render json: @item, status: :created, location: @item }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
   end
