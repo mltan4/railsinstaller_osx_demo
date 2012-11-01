@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-  #before_filter :signed_in_user
+  before_filter :authenticate_user!
+  skip_before_filter :authenticate_user!, :only=> [:index, :show, :search]
+
   # GET /items
   # GET /items.json
   def index
@@ -13,10 +15,10 @@ class ItemsController < ApplicationController
 
   def search
     if params["item_title"].to_s.downcase != "" # Search by title
-      @items = Item.search_item_by_title(params["item_title"].to_s.downcase)
+      @items = Item.search_item_by_title(params["item_title"].to_s.downcase,1)
     else # Search by parameters
       if params["category_id"].to_s.downcase != ""
-        @items = Item.where(:category_id => params["category_id"])
+        @items = Item.where(:category_id => params["category_id"], :status => 1)
       end
     end
 
@@ -33,6 +35,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @category = Category.find(@item.category_id)
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
+#    @seller = User.find(@item.seller_id)
     #Want to have seller information available, but require a new DB migration
     #TODO: @seller = User.find_by_item_id(@item.id)
     respond_to do |format|
@@ -48,6 +51,8 @@ class ItemsController < ApplicationController
     @item = Item.new
     #Store categories in categories variable for processing
     @categories = Category.all #<!-- added this -->
+    @item.seller_id = current_user.id
+    @item.save!
 
     4.times {@item.item_images.build}
 
@@ -109,6 +114,32 @@ class ItemsController < ApplicationController
     end
   end
 
+  def buy_now
+    @item = Item.find(params[:id])
+    puts(current_user.id)
+    @item.current_bidder_id = current_user.id
+    @buyer_user = User.find(@item.current_bidder_id)
+    @seller_user = User.find(@item.seller_id)
+    UserMailer.welcome_email(@buyer_user).deliver
+    UserMailer.welcome_email(@seller_user).deliver
+    @item.status = 2
+    @item.save
+  end
+
+  def close_expired_bids
+    puts ("Lookup for expired items")
+    #@expired_items = Item.find_by_sql("select * from btb_bestbay_development.items i where TIMESTAMPADD(DAY,i.bid_duration,i.created_at) < NOW() AND i.status = 1;")
+    #puts("Expired items found: " + @expired_items.count.to_s)
+    #
+    #@expired_items.each do |item|
+    #  item.status = 4
+    #  item.save
+    #  puts ("Item ID: " + item.id + "updated")
+    #end
+    #TODO: Enable for deliverable!
+    puts ("DISABLED TO AVOID DB OVERHEAD")
+  end
+
 
   def place_bid
     @item = Item.find(params[:id])
@@ -120,18 +151,15 @@ class ItemsController < ApplicationController
     elsif(Integer(@current_bid) > @item.buy_price && (@item.buy_price > 0))
       flash[:notice] = "Hey, you're bidding way to high! You should \"Buy Now\" instead!"
     elsif ((Integer(@current_bid) >= @item.minimum_bid_price) && (Integer(@current_bid) >=@item.current_bid))  #need this bid to be greater than current and minimum bid
-      @user = User.find(8)
+      @user = User.find(@item.current_bidder_id)
       UserMailer.welcome_email(@user).deliver
       @item.current_bid =  @current_bid
       @item.minimum_bid_price = Integer(@current_bid) + 1
+      @item.current_bidder_id = current_user.id
       @item.save!
     end
 
     render("show")
-    #TODO: Control blank search
-    #if params["item_title"] && params["category_id"] == nil
-    #  @items = Item.search_item_by_title("")
-    #end
   end
 
 end

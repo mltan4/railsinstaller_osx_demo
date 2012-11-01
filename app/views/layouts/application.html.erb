@@ -11,7 +11,7 @@
 <body>
 <!-- HEADER -->
 <!--Using the Bootstrap navbar class-->
-<div class="navbar navbar-inner navbar-fixed-top">
+<div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -19,17 +19,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="#">BestBay</a>
+      <a class="brand" href="#" style="color: white; font-size: 20px;">BestBay</a>
       <div class="nav-collapse collapse">
-        <p class="navbar-text pull-right">
-          <!--Display sign-in and sign-out links with styling using Devise gem for session management-->
-        <!--< if user_signed_in? %>-->
-            <!--Signed in as <= current_user.email %>. Not You?-->
-              <!--&lt;!&ndash;TODO: Add {:style=>'color:#FFFFFF;'} to "Sign Out"&ndash;&gt;-->
-            <!--<= link_to "Sign Out", destroy_user_session_path,:method =>:delete %>-->
-        <!--< else %>-->
-            <!--<= link_to "Sign Up", new_user_registration_path, {:style=>'color:#FFFFFF;'} %> or <%= link_to "Sign In", new_user_session_path, {:style=>'color:#FFFFFF;'} %>-->
-        <!--< end %>-->
+        <p class="navbar-text pull-right" style="color: white;">
+        <% if user_signed_in? %>
+            Signed in as <%= current_user.email %>. Not You?
+              <!--TODO: Add {:style=>'color:#FFFFFF;'} to "Sign Out"-->
+            <%= link_to "Sign Out", destroy_user_session_path, :method =>:delete, :style => 'color: #333; font-weight: bold;'%>
+        <% else %>
+            <%= link_to "Sign Up", new_user_registration_path, {:style=>'color: #333; font-weight: bold;'} %> or <%= link_to "Sign In", new_user_session_path, {:style=>'color: #333; font-weight: bold;'} %>
+        <% end %>
+        </p>
         <!--
         <p class="navbar-text pull-right">
           Logged in as <a href="#" class="navbar-link">Andres Ramirez</a>
@@ -37,8 +37,8 @@
 
         <ul class="nav">
           <li class="active"><a href="/">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#about" style="color: white;">About</a></li>
+          <li><a href="#contact" style="color: white;">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -49,12 +49,16 @@
 <div class="container">
     <% if !flash[:notice].blank? %>
         <div class="alert alert-success">
-          <!--p class="text-success"-->
           <button type="button" class="close" data-dismiss="alert">&times;</button>
           <%= flash[:notice] %>
-          <!--/p-->
         </div>
     <% end %>
+    <% if !flash[:notice].blank? %>
+      <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:alert] %>
+      </div>
+  <% end %>
 </div>
 
 <!-- BODY -->
