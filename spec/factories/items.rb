@@ -2,12 +2,14 @@
 
 FactoryGirl.define do
   factory :item do
-    title "test item"
-    category_id 2
-    quantity 1
-    description "Really cool test item"
-    buy_price 9.99
-    minimum_bid_price 9.99
     bid_duration 1
+    buy_price 99.99
+    category_id 1
+    description "Really cool test item"
+    display_title "Test Item"
+    minimum_bid_price 9.99
+    quantity 1
+    status 1
+    title "test item"
   end
 end
