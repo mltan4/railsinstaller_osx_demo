@@ -53,7 +53,7 @@
           <%= flash[:notice] %>
         </div>
     <% end %>
-    <% if !flash[:notice].blank? %>
+    <% if !flash[:alert].blank? %>
       <div class="alert alert-error">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <%= flash[:alert] %>
