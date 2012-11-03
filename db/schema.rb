@@ -34,19 +34,17 @@ ActiveRecord::Schema.define(:version => 20121031173944) do
     t.integer  "category_id"
     t.integer  "quantity"
     t.text     "description"
-    t.decimal  "buy_price",         :precision => 10, :scale => 0, :default => 0
-    t.decimal  "minimum_bid_price", :precision => 10, :scale => 0
+    t.decimal  "buy_price"
+    t.decimal  "minimum_bid_price"
     t.integer  "bid_duration"
-    t.datetime "created_at",                                                      :null => false
-    t.datetime "updated_at",                                                      :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "display_title"
-    t.integer  "current_bid",                                      :default => 0
     t.integer  "status"
-    t.integer  "current_bidder_id",                                :default => 0
-    t.integer  "seller_id",                                        :default => 0
+    t.integer  "current_bid",       :default => 0
+    t.integer  "current_bidder_id", :default => 0
+    t.integer  "seller_id",         :default => 0
   end
-
-  add_index "items", ["title"], :name => "title_UNIQUE", :unique => true
 
   create_table "models", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

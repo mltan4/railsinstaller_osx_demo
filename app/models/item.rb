@@ -10,4 +10,12 @@ class Item < ActiveRecord::Base
   # Functions
   # This is a search function, which queries the database for similar item titles
   scope :search_item_by_title, lambda {|query, status| where("status = ?", "#{status}").where("title LIKE ?", "%#{query}%")}
+
+  # Codes
+  # For status:
+  # 1 - Active
+  # 2 - Sold (Buy Now option)
+  # 3 - Sold (Bids)
+  # 4 - Expired (No Bids)
+  # 9 - Canceled
 end

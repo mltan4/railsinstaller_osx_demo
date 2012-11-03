@@ -13,6 +13,7 @@ class ItemsController < ApplicationController
     end
   end
 
+  # Action for searching the items
   def search
     if params["item_title"].to_s.downcase != "" # Search by title
       @items = Item.search_item_by_title(params["item_title"].to_s.downcase,1)
@@ -116,6 +117,7 @@ class ItemsController < ApplicationController
     end
   end
 
+  # Action for buying an item now, bypasses place_bid
   def buy_now
     @item = Item.find(params[:id])
     puts(current_user.id)
@@ -128,39 +130,53 @@ class ItemsController < ApplicationController
     @item.save
   end
 
+  # Action to close expired bids
   def close_expired_bids
     puts ("Lookup for expired items")
-    #@expired_items = Item.find_by_sql("select * from btb_bestbay_development.items i where TIMESTAMPADD(DAY,i.bid_duration,i.created_at) < NOW() AND i.status = 1;")
-    #puts("Expired items found: " + @expired_items.count.to_s)
-    #
-    #@expired_items.each do |item|
-    #  item.status = 4
-    #  item.save
-    #  puts ("Item ID: " + item.id + "updated")
-    #end
-    #TODO: Enable for deliverable!
-    puts ("DISABLED TO AVOID DB OVERHEAD")
+    @expired_items = Item.find_by_sql("select * from btb_bestbay_development.items i where TIMESTAMPADD(DAY,i.bid_duration,i.created_at) < NOW() AND i.status = 1;")
+    puts("Expired items found: " + @expired_items.count.to_s)
+
+    @expired_items.each do |item|
+      if (item.current_bidder_id.nil?)
+        item.status = 4 # Bid ended with no bids
+      elsif
+        item.status = 3 # Bid ended with a winning bid
+        #TODO: Send an email to the winner bidder
+      end
+      item.save
+      puts ("Item ID: " + item.id + "updated")
+    end
+    #puts ("DISABLED TO AVOID DB OVERHEAD")
   end
 
 
+  # Place bid action
+  # @param :id
   def place_bid
     @item = Item.find(params[:id])
     @category = Category.find(@item.category_id)
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
     @current_bid = params["current_bid"]
-    if(Integer(@current_bid) < @item.minimum_bid_price)
-      flash[:notice] = "Please place a bid higher than $" + @item.minimum_bid_price.to_s
-    elsif(Integer(@current_bid) > @item.buy_price && (@item.buy_price > 0))
-      flash[:notice] = "Hey, you're bidding way to high! You should \"Buy Now\" instead!"
-    elsif ((Integer(@current_bid) >= @item.minimum_bid_price) && (Integer(@current_bid) >=@item.current_bid))  #need this bid to be greater than current and minimum bid
-      @user = User.find(@item.current_bidder_id)
-      UserMailer.welcome_email(@user).deliver
-      @item.current_bid =  @current_bid
-      @item.minimum_bid_price = Integer(@current_bid) + 1
-      @item.current_bidder_id = current_user.id
-      @item.save!
+    # Still an active item?
+    if (@item_end_date <= DateTime.current)
+      if(Integer(@current_bid) < @item.minimum_bid_price) # Current bid lower than minimum bid
+        flash[:alert] = "Please place a bid higher than $" + @item.minimum_bid_price.to_s
+      elsif(Integer(@current_bid) >= @item.buy_price && (@item.buy_price > 0)) # Current bid greater than "buy now" price
+        flash[:alert] = "Hey, you're bidding way to high! You should \"Buy Now\" instead!"
+      elsif (Integer(@current_bid) >= @item.current_bid) # Current bid greater than minimum bid
+        if (!@item.current_bidder_id.nil?) # If its the first bid
+          @user = User.find(@item.current_bidder_id)
+          #TODO: Refactor send email method
+          UserMailer.welcome_email(@user).deliver
+        end
+        @item.current_bid =  @current_bid
+        @item.minimum_bid_price = Integer(@current_bid) + 1
+        @item.current_bidder_id = current_user.id
+        @item.save!
+      end
+    else
+      flash[:alert] = "This item is no longer available for bidding!"
     end
-
     render("show")
   end
 

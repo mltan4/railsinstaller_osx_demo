@@ -29,19 +29,19 @@ describe ItemsController do
     @category = FactoryGirl.create(:category)
   end
 
-  # This should return the minimal set of attributes required to create a valid
-  # Item. As you add validations to Item, be sure to
-  # update the return value of this method accordingly.
+  ## This should return the minimal set of attributes required to create a valid
+  ## Item. As you add validations to Item, be sure to
+  ## update the return value of this method accordingly.
   def valid_attributes
     {}
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # ItemsController. Be sure to keep this updated too.
-  def valid_session
-    {}
-  end
+  ## This should return the minimal set of values that should be in the session
+  ## in order to pass any filters (e.g. authentication) defined in
+  ## ItemsController. Be sure to keep this updated too.
+  #def valid_session
+  #  {}
+  #end
 
   describe "GET index" do
     it "should render index template" do
@@ -65,7 +65,7 @@ describe ItemsController do
   describe "GET new" do
     it "assigns a new item as @item" do
       get :new, {}
-      assigns(:item).should be_a_new(Item)
+      response.should be_success
     end
   end
 
