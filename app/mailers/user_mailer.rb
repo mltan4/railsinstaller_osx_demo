@@ -1,6 +1,10 @@
 class UserMailer < ActionMailer::Base
   default :from => "notifications@example.com"
 
+
+  # @param [User] user
+  # 
+  # @return [mail]
   def welcome_email(user)
     @user = user
     @url  = "http://example.com/login"
