@@ -1,7 +1,7 @@
-# ItemImage model
-# Supports images for an item
+# ==ItemImage model
+# Model to support images for an item
 #
-# Relationships
+# Relationships:
 #  belongs_to :item
 class ItemImage < ActiveRecord::Base
   attr_accessible :asset

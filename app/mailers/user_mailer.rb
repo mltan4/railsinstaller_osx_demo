@@ -1,4 +1,5 @@
-# UserMailer sends an email to user's email address
+# ==UserMailer
+# Logic that sends an email to user's email address
 class UserMailer < ActionMailer::Base
   default :from => "notifications@example.com"
 

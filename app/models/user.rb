@@ -1,7 +1,7 @@
-# User model
+# ==User model
+# Model to define the relationships, attributes, and functions for a User
 #
-# Relationships
-# has_many :items
+# Relationships: has_many :items
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable,

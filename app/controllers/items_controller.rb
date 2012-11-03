@@ -1,6 +1,7 @@
-# Controller for Items
+# ==Controller for Items:
+# Controller provides the logic for the view, incorporates main logic of the program for bidding
 #
-# Has index, show, new, edit, create, update, destroy, search, close_expired_bids, place_bid, buy_now actions
+# Has actions: index, show, new, edit, create, update, destroy, search, close_expired_bids, place_bid, buy_now
 class ItemsController < ApplicationController
   before_filter :authenticate_user!
   skip_before_filter :authenticate_user!, :only=> [:index, :show, :search]

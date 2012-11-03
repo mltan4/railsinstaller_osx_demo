@@ -1,5 +1,7 @@
-# Controller for Categories
-# Has index, show, new, edit, create, update, destroy
+# ==Controller for Categories:
+# Each item belongs to a category, this provides the logic for the view
+#
+# Has actions: index, show, new, edit, create, update, destroy
 class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json

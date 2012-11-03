@@ -144,8 +144,11 @@
 
   <div id="description" class="description">
     
-<p>Controller for Categories Has index, show, new, edit, create, update,
-destroy</p>
+<h2 id="label-Controller+for+Categories%3A">Controller for Categories:</h2>
+
+<p>Each item belongs to a category, this provides the logic for the view</p>
+
+<p>Has actions: index, show, new, edit, create, update, destroy</p>
 
   </div><!-- description -->
 
@@ -183,7 +186,7 @@ destroy</p>
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 44</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:category</span>])
   <span class="ruby-comment">#Creates a new category</span>
@@ -223,7 +226,7 @@ destroy</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 76</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@category</span>.<span class="ruby-identifier">destroy</span>
@@ -259,7 +262,7 @@ destroy</p>
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 38</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 <span class="ruby-keyword">end</span></pre>
@@ -289,7 +292,7 @@ destroy</p>
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 6</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@categories</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;id ASC&quot;</span>)
 
@@ -324,7 +327,7 @@ destroy</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 28</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">new</span>
 
@@ -359,7 +362,7 @@ destroy</p>
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
@@ -394,7 +397,7 @@ destroy</p>
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 60</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 62</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
