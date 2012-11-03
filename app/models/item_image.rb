@@ -1,6 +1,14 @@
+# ItemImage model
+# Supports images for an item
+#
+# Relationships
+#  belongs_to :item
 class ItemImage < ActiveRecord::Base
   attr_accessible :asset
+
+  #Relationships
   belongs_to :item
+
   has_attached_file :asset,
                     :styles => { :large => "640x480", :medium => "300x300>", :thumb => "100x100>" },
                     :url => "/assets/items/:id/:style/:basename.:extension",

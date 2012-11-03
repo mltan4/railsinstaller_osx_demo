@@ -152,6 +152,13 @@
 
   <div id="description" class="description">
     
+<p>Controller for Items</p>
+
+<p>Has index, show, new, edit, create, update, destroy, search, <a
+href="ItemsController.html#method-i-close_expired_bids">#close_expired_bids</a>,
+<a href="ItemsController.html#method-i-place_bid">#place_bid</a>, <a
+href="ItemsController.html#method-i-buy_now">#buy_now</a> actions</p>
+
   </div><!-- description -->
 
   
@@ -183,12 +190,13 @@
 
         <div class="method-description">
           
-          
+          <p>Action for buying an item now, bypasses <a
+href="ItemsController.html#method-i-place_bid">#place_bid</a></p>
           
 
           
           <div class="method-source-code" id="buy_now-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 119</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 124</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">buy_now</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-identifier">puts</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>)
@@ -221,12 +229,12 @@
 
         <div class="method-description">
           
-          
+          <p>Action to close expired bids</p>
           
 
           
           <div class="method-source-code" id="close_expired_bids-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 131</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 137</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">close_expired_bids</span>
   <span class="ruby-identifier">puts</span> (<span class="ruby-string">&quot;Lookup for expired items&quot;</span>)
   <span class="ruby-ivar">@expired_items</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find_by_sql</span>(<span class="ruby-string">&quot;select * from btb_bestbay_development.items i where TIMESTAMPADD(DAY,i.bid_duration,i.created_at) &lt; NOW() AND i.status = 1;&quot;</span>)
@@ -270,7 +278,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 74</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:item</span>])
   <span class="ruby-comment">#Create a new item, store the title downcase for DB for searching</span>
@@ -313,7 +321,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 109</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 113</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">destroy</span>
@@ -349,7 +357,7 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 66</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@categories</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">all</span>
@@ -381,7 +389,7 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 7</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@items</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">all</span>
 
@@ -416,7 +424,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 49</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-comment">#Creates new item</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">new</span>
@@ -453,19 +461,19 @@
 
         <div class="method-description">
           
-          
+          <p>Place bid action @param :id</p>
           
 
           
           <div class="method-source-code" id="place_bid-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 150</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 158</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">place_bid</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@item</span>.<span class="ruby-identifier">category_id</span>)
   <span class="ruby-ivar">@item_end_date</span> = <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">created_at</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">bid_duration</span>.<span class="ruby-identifier">to_i</span>.<span class="ruby-identifier">days</span>
   <span class="ruby-ivar">@current_bid</span> = <span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;current_bid&quot;</span>]
   <span class="ruby-comment"># Still an active item?</span>
-  <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@item_end_date</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">current</span>)
+  <span class="ruby-keyword">if</span> (<span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">current</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@item_end_date</span>)
     <span class="ruby-keyword">if</span>(<span class="ruby-constant">Integer</span>(<span class="ruby-ivar">@current_bid</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">minimum_bid_price</span>) <span class="ruby-comment"># Current bid lower than minimum bid</span>
       <span class="ruby-identifier">flash</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-string">&quot;Please place a bid higher than $&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">minimum_bid_price</span>.<span class="ruby-identifier">to_s</span>
     <span class="ruby-keyword">elsif</span>(<span class="ruby-constant">Integer</span>(<span class="ruby-ivar">@current_bid</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">buy_price</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-ivar">@item</span>.<span class="ruby-identifier">buy_price</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>)) <span class="ruby-comment"># Current bid greater than &quot;buy now&quot; price</span>
@@ -475,12 +483,15 @@
         <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@item</span>.<span class="ruby-identifier">current_bidder_id</span>)
         <span class="ruby-comment">#TODO: Refactor send email method</span>
         <span class="ruby-constant">UserMailer</span>.<span class="ruby-identifier">welcome_email</span>(<span class="ruby-ivar">@user</span>).<span class="ruby-identifier">deliver</span>
+        <span class="ruby-identifier">puts</span>(<span class="ruby-string">&quot;IT SHOULD HAVE EMAILED&quot;</span>)
       <span class="ruby-keyword">end</span>
       <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">current_bid</span> =  <span class="ruby-ivar">@current_bid</span>
       <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">minimum_bid_price</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-ivar">@current_bid</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
       <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">current_bidder_id</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>
       <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">save!</span>
     <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-string">&quot;This item is no longer available for bidding!&quot;</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">render</span>(<span class="ruby-string">&quot;show&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -505,12 +516,12 @@
 
         <div class="method-description">
           
-          
+          <p>Action for searching the items</p>
           
 
           
           <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 16</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">search</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;item_title&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-comment"># Search by title</span>
     <span class="ruby-ivar">@items</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">search_item_by_title</span>(<span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;item_title&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>,<span class="ruby-value">1</span>)
@@ -551,7 +562,7 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 33</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 37</span>
   <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
     <span class="ruby-comment">#Shows the item as identified by the id parameter</span>
     <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
@@ -591,7 +602,7 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 93</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 97</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 

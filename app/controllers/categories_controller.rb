@@ -1,3 +1,5 @@
+# Controller for Categories
+# Has index, show, new, edit, create, update, destroy
 class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json

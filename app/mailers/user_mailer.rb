@@ -1,10 +1,9 @@
+# UserMailer sends an email to user's email address
 class UserMailer < ActionMailer::Base
   default :from => "notifications@example.com"
 
-
+  # Sends an email to user's email address
   # @param [User] user
-  # 
-  # @return [mail]
   def welcome_email(user)
     @user = user
     @url  = "http://example.com/login"

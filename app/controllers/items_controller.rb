@@ -1,3 +1,6 @@
+# Controller for Items
+#
+# Has index, show, new, edit, create, update, destroy, search, close_expired_bids, place_bid, buy_now actions
 class ItemsController < ApplicationController
   before_filter :authenticate_user!
   skip_before_filter :authenticate_user!, :only=> [:index, :show, :search]
