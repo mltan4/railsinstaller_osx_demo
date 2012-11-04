@@ -18,6 +18,13 @@ class ItemsController < ApplicationController
   end
 
   # Action for searching the items
+  #
+  # When this action is initiated, the database is searched by the parameters below.
+  #
+  # @param "item_title"
+  # @param "category_id"
+  #
+  # @return [@items]
   def search
     if params["item_title"].to_s.downcase != "" # Search by title
       @items = Item.search_item_by_title(params["item_title"].to_s.downcase,1)
@@ -156,6 +163,7 @@ class ItemsController < ApplicationController
 
   # Place bid action
   # @param :id
+  # @param "current_bid"
   def place_bid
     @item = Item.find(params[:id])
     @category = Category.find(@item.category_id)
