@@ -1,3 +1,7 @@
+# ==Controller for Items:
+# Controller provides the logic for the view, incorporates main logic of the program for bidding
+#
+# Has actions: index, show, new, edit, create, update, destroy, search, close_expired_bids, place_bid, buy_now
 class ItemsController < ApplicationController
   before_filter :authenticate_user!
   skip_before_filter :authenticate_user!, :only=> [:index, :show, :search]
@@ -158,7 +162,7 @@ class ItemsController < ApplicationController
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
     @current_bid = params["current_bid"]
     # Still an active item?
-    if (@item_end_date <= DateTime.current)
+    if (DateTime.current < @item_end_date)
       if(Integer(@current_bid) < @item.minimum_bid_price) # Current bid lower than minimum bid
         flash[:alert] = "Please place a bid higher than $" + @item.minimum_bid_price.to_s
       elsif(Integer(@current_bid) >= @item.buy_price && (@item.buy_price > 0)) # Current bid greater than "buy now" price
@@ -168,6 +172,7 @@ class ItemsController < ApplicationController
           @user = User.find(@item.current_bidder_id)
           #TODO: Refactor send email method
           UserMailer.welcome_email(@user).deliver
+          puts("IT SHOULD HAVE EMAILED")
         end
         @item.current_bid =  @current_bid
         @item.minimum_bid_price = Integer(@current_bid) + 1

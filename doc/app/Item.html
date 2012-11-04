@@ -122,6 +122,19 @@
 
   <div id="description" class="description">
     
+<h2 id="label-Item+model"><a href="Item.html">Item</a> model</h2>
+
+<p><a href="Model.html">Model</a> to define the relationships, attributes, and
+functions for an <a href="Item.html">Item</a></p>
+
+<p>Relationships: has_many :item_images, belongs_to :user, belongs_to
+:category</p>
+
+<p>accepts_nested_attributes_for :item_images, :allow_destroy =&gt; true</p>
+
+<p>Status Codes for search function: 1 - Active, 2 - Sold (Buy Now option), 3
+- Sold (Bids), 4 - Expired (No Bids), 9 - Cancelled</p>
+
   </div><!-- description -->
 
   
