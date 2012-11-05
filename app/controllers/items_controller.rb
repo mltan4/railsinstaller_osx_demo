@@ -47,6 +47,7 @@ class ItemsController < ApplicationController
   # GET /items/new
   # GET /items/new.json
   def new
+    @page_title = "Sell Item"
     #Creates new item
     @item = Item.new
     #Store categories in categories variable for processing
@@ -143,7 +144,6 @@ class ItemsController < ApplicationController
       item.save
       puts ("Item ID: " + item.id + "updated")
     end
-    #puts ("DISABLED TO AVOID DB OVERHEAD")
   end
 
 
@@ -152,8 +152,8 @@ class ItemsController < ApplicationController
     @category = Category.find(@item.category_id)
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
     @current_bid = params["current_bid"]
-    # Still an active item?
-    if (@item_end_date <= DateTime.current)
+    # Item still active
+    if (@item_end_date > DateTime.current && @item.status == 1)
       if(Integer(@current_bid) < @item.minimum_bid_price) # Current bid lower than minimum bid
         flash[:alert] = "Please place a bid higher than $" + @item.minimum_bid_price.to_s
       elsif(Integer(@current_bid) >= @item.buy_price && (@item.buy_price > 0)) # Current bid greater than "buy now" price
@@ -168,6 +168,12 @@ class ItemsController < ApplicationController
         @item.minimum_bid_price = Integer(@current_bid) + 1
         @item.current_bidder_id = current_user.id
         @item.save!
+      end
+    else
+      if @item.status == [2,3] # Item already sold
+        flash[:alert] = "We are sorry but this item was sold"
+      else # Item already expired
+        flash[:alert] = "We are sorry but this item already expired at " + @item_end_date.to_s
       end
     end
     render("show")

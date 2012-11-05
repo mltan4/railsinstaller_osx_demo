@@ -177,13 +177,47 @@ describe ItemsController do
     end
   end
 
-  describe "Search action" do
-    it "searches an item" do
+  describe "Search functionality" do
+    it "search at scope level" do
       item = Item.create! valid_attributes
       item.title="test"
       item.status = 1
       item.save!
       Item.search_item_by_title("test",1).should_not be_empty
+    end
+
+    it "search for items action" do
+      get :search, {:item_title => "test item"}
+      response.should render_template("search")
+    end
+
+    it "search for categories action" do
+      get :search, {:category_id => "1"}
+      response.should render_template("search")
+    end
+  end
+
+  describe "BuyNow functionality" do
+    it "buy_now action" do
+      get :buy_now, {:id => @item.id}
+      response.should render_template("buy_now")
+    end
+  end
+
+  describe "Place Bid functionality" do
+    it "place_bid action" do
+      # First bid
+      get :place_bid, {:id => @item.id, :current_bid => "10"}
+      response.should render_template("show")
+      # Second bid
+      get :place_bid, {:id => @item.id, :current_bid => "20"}
+      response.should render_template("show")
+      # Bid lower than the new minimum bid
+      get :place_bid, {:id => @item.id, :current_bid => "10"}
+      response.should render_template("show")
+      # Bid higher that the "buynow" price
+      get :place_bid, {:id => @item.id, :current_bid => "1000"}
+      response.should render_template("show")
     end
   end
 end
