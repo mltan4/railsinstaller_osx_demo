@@ -1,5 +1,6 @@
 # ==UserMailer
 # Logic that sends an email to user's email address
+# This suppoerts the notification functionality for BestBay whenever a buyer bids or buy now.
 class UserMailer < ActionMailer::Base
   default :from => "notifications@example.com"
 

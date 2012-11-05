@@ -6,7 +6,10 @@ class ItemsController < ApplicationController
   before_filter :authenticate_user!
   skip_before_filter :authenticate_user!, :only=> [:index, :show, :search]
 
+  # This section displays the list of items available regardless of category.
+  #
   # GET /items
+  #
   # GET /items.json
   def index
     @items = Item.all
@@ -17,14 +20,14 @@ class ItemsController < ApplicationController
     end
   end
 
-  # Action for searching the items
+  # Action for searching the items.
   #
-  # When this action is initiated, the database is searched by the parameters below.
+  # When this action is initiated, the database is searched by the parameters below. Search can be done in two ways:
   #
-  # @param "item_title"
-  # @param "category_id"
+  # (1) Loads params[: "item_title"] which searches the item by title
   #
-  # @return [@items]
+  # (2) Loads params[: "category_id"] which searches the item by category
+  #
   def search
     if params["item_title"].to_s.downcase != "" # Search by title
       @items = Item.search_item_by_title(params["item_title"].to_s.downcase,1)
@@ -40,7 +43,12 @@ class ItemsController < ApplicationController
     #end
   end
 
+  # This section loads a previously created item with the intention of viewing: "read-only."
+  #
+  # Loads params[: id] which selects the item for viewing.
+  #
   # GET /items/1
+  #
   # GET /items/1.json
   def show
     #Shows the item as identified by the id parameter
@@ -56,7 +64,12 @@ class ItemsController < ApplicationController
     end
   end
 
+  # This section builds a new instance of an item. Note that it will not save it yet.
+  #
+  # When this form is submitted, Rails sends it to the "create" action.
+  #
   # GET /items/new
+  #
   # GET /items/new.json
   def new
     #Creates new item
@@ -74,6 +87,12 @@ class ItemsController < ApplicationController
     end
   end
 
+  # This section retrieve a previously created item with the intention of changing its attributes but changes will not be made or submitted yet.
+  #
+  # The corresponding view submits to the "update" action to save the changes.
+  #
+  # Loads params[: id] which selects the item for editing.
+  #
   # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])
@@ -81,11 +100,16 @@ class ItemsController < ApplicationController
     4.times {@item.item_images.build}
   end
 
+  # This section saves the item that was setup using the "new" action.
+  #
+  # Loads params[: item] which creates the item in the database.
+  #
   # POST /items
+  #
   # POST /items.json
   def create
     @item = Item.new(params[:item])
-    #Create a new item, store the title downcase for DB for searching
+    #Create a new item, store the title downcase for DB for searching.
     if params[:item] != {}
       @item.title = @item.display_title.downcase
     end
@@ -100,7 +124,12 @@ class ItemsController < ApplicationController
     end
   end
 
+  # This section save the changes made when editing a previously created item.
+  #
+  # Loads params [: id]  of category that will be updated, then stores param [: item].
+  #
   # PUT /items/1
+  #
   # PUT /items/1.json
   def update
     @item = Item.find(params[:id])
@@ -116,7 +145,12 @@ class ItemsController < ApplicationController
     end
   end
 
+  # This section destroys or deletes a previously created item.
+  #
+  # Loads params [: id] of item and destroys it.
+  #
   # DELETE /items/1
+  #
   # DELETE /items/1.json
   def destroy
     @item = Item.find(params[:id])
@@ -128,7 +162,12 @@ class ItemsController < ApplicationController
     end
   end
 
-  # Action for buying an item now, bypasses place_bid
+  # Action for buying an item now, bypasses place_bid.
+  #
+  # Loads params [: id] of item and performs notification actions.
+  #
+  # Finds the current buyer and seller and sends them email via UserMailer, then change item_status to 2 (sold).
+  #
   def buy_now
     @item = Item.find(params[:id])
     puts(current_user.id)
@@ -141,7 +180,10 @@ class ItemsController < ApplicationController
     @item.save
   end
 
-  # Action to close expired bids
+  # Action to close expired bids so that it will not appear in the search results.
+  #
+  # Change in status include: "4" ended without bids & "3" ended with a winning bid.
+  #
   def close_expired_bids
     puts ("Lookup for expired items")
     @expired_items = Item.find_by_sql("select * from btb_bestbay_development.items i where TIMESTAMPADD(DAY,i.bid_duration,i.created_at) < NOW() AND i.status = 1;")
@@ -160,10 +202,17 @@ class ItemsController < ApplicationController
     #puts ("DISABLED TO AVOID DB OVERHEAD")
   end
 
+  # Action to place a bid, loads two parameters:
+  #
+  # Loads params[: id] which selects the item up for bidding.
+  #
+  # Loads params [" current_bid"] to compare the current amount to the proposed bidding price.
+  #
+  # Implements the business rules, i.e. will not allow a bid that is lower than minimum or a bid higher than buy now.
+  #
+  # Notifies the buyer/seller whenever a bid has been successfully completed.
+  #
 
-  # Place bid action
-  # @param :id
-  # @param "current_bid"
   def place_bid
     @item = Item.find(params[:id])
     @category = Category.find(@item.category_id)

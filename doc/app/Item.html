@@ -124,16 +124,29 @@
     
 <h2 id="label-Item+model"><a href="Item.html">Item</a> model</h2>
 
-<p><a href="Model.html">Model</a> to define the relationships, attributes, and
-functions for an <a href="Item.html">Item</a></p>
+<p>This model define the relationships, attributes, and functions for each
+item.</p>
 
-<p>Relationships: has_many :item_images, belongs_to :user, belongs_to
-:category</p>
+<p>An item can only belong to one user &amp; category - Relationship:
+belongs_to :user and belongs_to :category.</p>
 
-<p>accepts_nested_attributes_for :item_images, :allow_destroy =&gt; true</p>
+<p>This section accepts_nested_attributes_for :item_images and :allow_destroy
+=&gt; true.</p>
 
-<p>Status Codes for search function: 1 - Active, 2 - Sold (Buy Now option), 3
-- Sold (Bids), 4 - Expired (No Bids), 9 - Cancelled</p>
+<p>Here are the status codes for search function:</p>
+
+<p>1 - Active,</p>
+
+<p>2 - Sold (Buy Now option),</p>
+
+<p>3 - Sold (Bids),</p>
+
+<p>4 - Expired (No Bids),</p>
+
+<p>9 - Cancelled</p>
+
+<p>This also calls for a search function which queries the database for
+similar item titles.</p>
 
   </div><!-- description -->
 

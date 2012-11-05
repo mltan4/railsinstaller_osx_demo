@@ -1,6 +1,9 @@
-# ==Model ()necessary for devise)
+# ==Model
 #
-# Includes support for authentication
+# This has been created as an initial implementation for devise (user creation gem).
+#
+# However, this has been replaced. Please refer to User model instead.
+
 class Model < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

@@ -1,3 +1,15 @@
 Welcome to the README for BestBay!
 
-<Insert content here>
+Welcome to Bob The Builders's BestBay Rdoc!
+
+This is the API documentation for Rails Application Documentation.
+This rdoc focuses on four good design quality attributes: accuracy, brevity, clarity and organization.
+
+Bob The Builders implemented four core models. These are:
+
+    I. User - all the user account details.
+    II. Category - all the categories that we have implemented for BestBay
+    III. Items - all the information about an item that will be placed for buy/sell.
+    IV. Item Image – the images used for the items that will be placed for buy/sell.
+
+Please click on the rdoc column to view the classes and modules implemented by our team.

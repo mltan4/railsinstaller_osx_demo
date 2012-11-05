@@ -193,13 +193,17 @@ href="ItemsController.html#method-i-buy_now">#buy_now</a></p>
 
         <div class="method-description">
           
-          <p>Action for buying an item now, bypasses <a
-href="ItemsController.html#method-i-place_bid">#place_bid</a></p>
+          <p>Action for buying an item now, bypasses place_bid.</p>
+
+<p>Loads params [: id] of item and performs notification actions.</p>
+
+<p>Finds the current buyer and seller and sends them email via <a
+href="UserMailer.html">UserMailer</a>, then change item_status to 2 (sold).</p>
           
 
           
           <div class="method-source-code" id="buy_now-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 132</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 171</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">buy_now</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-identifier">puts</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>)
@@ -232,12 +236,16 @@ href="ItemsController.html#method-i-place_bid">#place_bid</a></p>
 
         <div class="method-description">
           
-          <p>Action to close expired bids</p>
+          <p>Action to close expired bids so that it will not appear in the search
+results.</p>
+
+<p>Change in status include: “4” ended without bids &amp; “3” ended with a
+winning bid.</p>
           
 
           
           <div class="method-source-code" id="close_expired_bids-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 145</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 187</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">close_expired_bids</span>
   <span class="ruby-identifier">puts</span> (<span class="ruby-string">&quot;Lookup for expired items&quot;</span>)
   <span class="ruby-ivar">@expired_items</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find_by_sql</span>(<span class="ruby-string">&quot;select * from btb_bestbay_development.items i where TIMESTAMPADD(DAY,i.bid_duration,i.created_at) &lt; NOW() AND i.status = 1;&quot;</span>)
@@ -276,15 +284,21 @@ href="ItemsController.html#method-i-place_bid">#place_bid</a></p>
 
         <div class="method-description">
           
-          <p>POST /items POST /items.json</p>
+          <p>This section saves the item that was setup using the “new” action.</p>
+
+<p>Loads params[: item] which creates the item in the database.</p>
+
+<p>POST /items</p>
+
+<p>POST /items.json</p>
           
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 86</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 110</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:item</span>])
-  <span class="ruby-comment">#Create a new item, store the title downcase for DB for searching</span>
+  <span class="ruby-comment">#Create a new item, store the title downcase for DB for searching.</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:item</span>] <span class="ruby-operator">!=</span> {}
     <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">title</span> = <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">display_title</span>.<span class="ruby-identifier">downcase</span>
   <span class="ruby-keyword">end</span>
@@ -319,12 +333,18 @@ href="ItemsController.html#method-i-place_bid">#place_bid</a></p>
 
         <div class="method-description">
           
-          <p>DELETE /items/1 DELETE /items/1.json</p>
+          <p>This section destroys or deletes a previously created item.</p>
+
+<p>Loads params [: id] of item and destroys it.</p>
+
+<p>DELETE /items/1</p>
+
+<p>DELETE /items/1.json</p>
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 121</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 155</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@item</span>.<span class="ruby-identifier">destroy</span>
@@ -355,12 +375,19 @@ href="ItemsController.html#method-i-place_bid">#place_bid</a></p>
 
         <div class="method-description">
           
-          <p>GET /items/1/edit</p>
+          <p>This section retrieve a previously created item with the intention of
+changing its attributes but changes will not be made or submitted yet.</p>
+
+<p>The corresponding view submits to the “update” action to save the changes.</p>
+
+<p>Loads params[: id] which selects the item for editing.</p>
+
+<p>GET /items/1/edit</p>
           
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 78</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 97</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@categories</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">all</span>
@@ -387,12 +414,16 @@ href="ItemsController.html#method-i-place_bid">#place_bid</a></p>
 
         <div class="method-description">
           
-          <p>GET /items GET /items.json</p>
+          <p>This section displays the list of items available regardless of category.</p>
+
+<p>GET /items</p>
+
+<p>GET /items.json</p>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 11</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@items</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">all</span>
 
@@ -422,12 +453,19 @@ href="ItemsController.html#method-i-place_bid">#place_bid</a></p>
 
         <div class="method-description">
           
-          <p>GET /items/new GET /items/new.json</p>
+          <p>This section builds a new instance of an item. Note that it will not save
+it yet.</p>
+
+<p>When this form is submitted, Rails sends it to the “create” action.</p>
+
+<p>GET /items/new</p>
+
+<p>GET /items/new.json</p>
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 61</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-comment">#Creates new item</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">new</span>
@@ -464,12 +502,22 @@ href="ItemsController.html#method-i-place_bid">#place_bid</a></p>
 
         <div class="method-description">
           
-          <p>Place bid action @param :id @param “current_bid”</p>
+          <p>Action to place a bid, loads two parameters:</p>
+
+<p>Loads params[: id] which selects the item up for bidding.</p>
+
+<p>Loads params [“ current_bid”] to compare the current amount to the proposed
+bidding price.</p>
+
+<p>Implements the business rules, i.e. will not allow a bid that is lower than
+minimum or a bid higher than buy now.</p>
+
+<p>Notifies the buyer/seller whenever a bid has been successfully completed.</p>
           
 
           
           <div class="method-source-code" id="place_bid-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 167</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 216</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">place_bid</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@item</span>.<span class="ruby-identifier">category_id</span>)
@@ -519,19 +567,19 @@ href="ItemsController.html#method-i-place_bid">#place_bid</a></p>
 
         <div class="method-description">
           
-          <p>Action for searching the items</p>
+          <p>Action for searching the items.</p>
 
 <p>When this action is initiated, the database is searched by the parameters
-below.</p>
+below. Search can be done in two ways:</p>
 
-<p>@param “item_title” @param “category_id”</p>
+<p>(1) Loads params[: “item_title”] which searches the item by title</p>
 
-<p>@return [@items]</p>
+<p>(2) Loads params[: “category_id”] which searches the item by category</p>
           
 
           
           <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 28</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">search</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;item_title&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-comment"># Search by title</span>
     <span class="ruby-ivar">@items</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">search_item_by_title</span>(<span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;item_title&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>,<span class="ruby-value">1</span>)
@@ -567,12 +615,19 @@ below.</p>
 
         <div class="method-description">
           
-          <p>GET /items/1 GET /items/1.json</p>
+          <p>This section loads a previously created item with the intention of viewing:
+“read-only.”</p>
+
+<p>Loads params[: id] which selects the item for viewing.</p>
+
+<p>GET /items/1</p>
+
+<p>GET /items/1.json</p>
           
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 45</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 53</span>
   <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
     <span class="ruby-comment">#Shows the item as identified by the id parameter</span>
     <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
@@ -607,12 +662,19 @@ below.</p>
 
         <div class="method-description">
           
-          <p>PUT /items/1 PUT /items/1.json</p>
+          <p>This section save the changes made when editing a previously created item.</p>
+
+<p>Loads params [: id]  of category that will be updated, then stores param [:
+item].</p>
+
+<p>PUT /items/1</p>
+
+<p>PUT /items/1.json</p>
           
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 105</span>
+            <pre><span class="ruby-comment"># File app/controllers/items_controller.rb, line 134</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 

@@ -181,12 +181,18 @@
 
         <div class="method-description">
           
-          <p>POST /categories POST /categories.json</p>
+          <p>This section saves the category that was setup using the “new” action.</p>
+
+<p>Loads params[: category] which creates the category in the database.</p>
+
+<p>POST /categories</p>
+
+<p>POST /categories.json</p>
           
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 46</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 72</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:category</span>])
   <span class="ruby-comment">#Creates a new category</span>
@@ -221,12 +227,18 @@
 
         <div class="method-description">
           
-          <p>DELETE /categories/1 DELETE /categories/1.json</p>
+          <p>This section destroys or deletes a previously created category.</p>
+
+<p>Loads params [: id]  of category and destroys it.</p>
+
+<p>DELETE /categories/1</p>
+
+<p>DELETE /categories/1.json</p>
           
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 78</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@category</span>.<span class="ruby-identifier">destroy</span>
@@ -257,12 +269,21 @@
 
         <div class="method-description">
           
-          <p>GET /categories/1/edit</p>
+          <p>This section retrieve a previously created category with the intention of
+changing its attributes.</p>
+
+<p>The changes will not be made or submitted yet.</p>
+
+<p>The corresponding view submits to the “update” action to save the changes.</p>
+
+<p>Loads params[: id] which selects the category for editing.</p>
+
+<p>GET /categories/1/edit</p>
           
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 40</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 <span class="ruby-keyword">end</span></pre>
@@ -287,15 +308,19 @@
 
         <div class="method-description">
           
-          <p>GET /categories GET /categories.json</p>
+          <p>This section displays the list of categories available. For Bestbay, this
+include laptops, mobile phones, bags, etc.</p>
+
+<p>GET /categories</p>
+
+<p>GET /categories.json</p>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 8</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@categories</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;id ASC&quot;</span>)
-
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># index.html.erb</span>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@categories</span> }
@@ -322,17 +347,24 @@
 
         <div class="method-description">
           
-          <p>GET /categories/new GET /categories/new.json</p>
+          <p>This section builds a new instance of the category. Note that it will not
+save it yet.</p>
+
+<p>When this form is submitted, Rails sends it to the “create” action.</p>
+
+<p>GET /categories/new</p>
+
+<p>GET /categories/new.json</p>
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 30</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">new</span>
 
   <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># new.html.erb</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># new.html.erb</span>
     <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@category</span> }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -357,12 +389,19 @@
 
         <div class="method-description">
           
-          <p>GET /categories/1 GET /categories/1.json</p>
+          <p>This section loads a previously created category with the intention of
+viewing: “read-only.”</p>
+
+<p>Loads params[: id] which selects the category for viewing.</p>
+
+<p>GET /categories/1</p>
+
+<p>GET /categories/1.json</p>
           
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 19</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
@@ -392,12 +431,20 @@
 
         <div class="method-description">
           
-          <p>PUT /categories/1 PUT /categories/1.json</p>
+          <p>This section save the changes made when editing a previously created
+category.</p>
+
+<p>Loads params [: id]  of category that will be updated, then stores param [:
+category].</p>
+
+<p>PUT /categories/1</p>
+
+<p>PUT /categories/1.json</p>
           
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 62</span>
+            <pre><span class="ruby-comment"># File app/controllers/categories_controller.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 

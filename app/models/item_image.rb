@@ -1,8 +1,10 @@
 # ==ItemImage model
-# Model to support images for an item
+# This model supports the images uploaded for an item.
 #
-# Relationships:
-# belongs_to :item
+# Note that an item can have many images, but an image can only be tagged to one item - Relationship: belongs_to :item.
+#
+# Other attributes of an image has also been included here.
+#
 class ItemImage < ActiveRecord::Base
   attr_accessible :asset
 

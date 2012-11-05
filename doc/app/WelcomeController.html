@@ -135,7 +135,7 @@
 <h2 id="label-Controller+for+Welcome+Page%3A">Controller for Welcome Page:</h2>
 
 <p>Has index action to set the order for displaying the categories on the
-welcome page</p>
+welcome page.</p>
 
   </div><!-- description -->
 
@@ -168,16 +168,17 @@ welcome page</p>
 
         <div class="method-description">
           
-          <p>Index action for <a href="WelcomeController.html">WelcomeController</a></p>
+          <p>Index action for <a href="WelcomeController.html">WelcomeController</a>.</p>
+
+<p>This section sets the order for categories display.</p>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/welcome_controller.rb, line 6</span>
+            <pre><span class="ruby-comment"># File app/controllers/welcome_controller.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-comment">#Set order for categories display</span>
-  <span class="ruby-ivar">@categories</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;id ASC&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+    <span class="ruby-ivar">@categories</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;id ASC&quot;</span>)
+  <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
         </div>
