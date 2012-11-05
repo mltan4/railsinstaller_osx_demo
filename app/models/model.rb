@@ -1,3 +1,6 @@
+# ==Model ()necessary for devise)
+#
+# Includes support for authentication
 class Model < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

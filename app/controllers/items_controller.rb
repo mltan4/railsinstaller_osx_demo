@@ -13,6 +13,14 @@ class ItemsController < ApplicationController
     end
   end
 
+  # Action for searching the items
+  #
+  # When this action is initiated, the database is searched by the parameters below.
+  #
+  # @param "item_title"
+  # @param "category_id"
+  #
+  # @return [@items]
   def search
     if params["item_title"].to_s.downcase != "" # Search by title
       @items = Item.search_item_by_title(params["item_title"].to_s.downcase,1)
@@ -119,6 +127,7 @@ class ItemsController < ApplicationController
     end
   end
 
+  # Action for buying an item now, bypasses place_bid
   def buy_now
     @item = Item.find(params[:id])
     puts(current_user.id)
@@ -131,6 +140,7 @@ class ItemsController < ApplicationController
     @item.save
   end
 
+  # Action to close expired bids
   def close_expired_bids
     puts ("Lookup for expired items")
     @expired_items = Item.find_by_sql("select * from btb_bestbay_development.items i where TIMESTAMPADD(DAY,i.bid_duration,i.created_at) < NOW() AND i.status = 1;")
@@ -149,6 +159,9 @@ class ItemsController < ApplicationController
   end
 
 
+  # Place bid action
+  # @param :id
+  # @param "current_bid"
   def place_bid
     @item = Item.find(params[:id])
     @category = Category.find(@item.category_id)
