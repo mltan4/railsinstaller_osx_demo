@@ -52,8 +52,6 @@ class ItemsController < ApplicationController
     @item = Item.new
     #Store categories in categories variable for processing
     @categories = Category.all #<!-- added this -->
-    @item.seller_id = current_user.id
-    @item.save!
 
     4.times {@item.item_images.build}
 
@@ -77,7 +75,11 @@ class ItemsController < ApplicationController
     #Create a new item, store the title downcase for DB for searching
     if params[:item] != {}
       @item.title = @item.display_title.downcase
+      @item.seller_id = current_user.id
+      @item.current_bidder_id = nil
+      @item.status = 1 # Active item
     end
+
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
