@@ -10,5 +10,6 @@ class WelcomeController < ApplicationController
 
 def index
     @categories = Category.order("id ASC")
+    @page_title = "Home"
   end
 end

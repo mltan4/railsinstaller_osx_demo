@@ -11,5 +11,7 @@ FactoryGirl.define do
     quantity 1
     status 1
     title "test item"
+    seller_id 1
+    current_bidder_id nil
   end
 end

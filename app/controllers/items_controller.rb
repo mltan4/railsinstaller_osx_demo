@@ -1,7 +1,3 @@
-# ==Controller for Items:
-# Controller provides the logic for the view, incorporates main logic of the program for bidding
-#
-# Has actions: index, show, new, edit, create, update, destroy, search, close_expired_bids, place_bid, buy_now
 class ItemsController < ApplicationController
   before_filter :authenticate_user!
   skip_before_filter :authenticate_user!, :only=> [:index, :show, :search]
@@ -72,12 +68,11 @@ class ItemsController < ApplicationController
   #
   # GET /items/new.json
   def new
+    @page_title = "Sell Item"
     #Creates new item
     @item = Item.new
     #Store categories in categories variable for processing
     @categories = Category.all #<!-- added this -->
-    @item.seller_id = current_user.id
-    @item.save!
 
     4.times {@item.item_images.build}
 
@@ -112,7 +107,11 @@ class ItemsController < ApplicationController
     #Create a new item, store the title downcase for DB for searching.
     if params[:item] != {}
       @item.title = @item.display_title.downcase
+      @item.seller_id = current_user.id
+      @item.current_bidder_id = nil
+      @item.status = 1 # Active item
     end
+
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
@@ -199,7 +198,6 @@ class ItemsController < ApplicationController
       item.save
       puts ("Item ID: " + item.id + "updated")
     end
-    #puts ("DISABLED TO AVOID DB OVERHEAD")
   end
 
   # Action to place a bid, loads two parameters:
@@ -218,8 +216,8 @@ class ItemsController < ApplicationController
     @category = Category.find(@item.category_id)
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
     @current_bid = params["current_bid"]
-    # Still an active item?
-    if (DateTime.current < @item_end_date)
+    # Item still active
+    if (@item_end_date > DateTime.current && @item.status == 1)
       if(Integer(@current_bid) < @item.minimum_bid_price) # Current bid lower than minimum bid
         flash[:alert] = "Please place a bid higher than $" + @item.minimum_bid_price.to_s
       elsif(Integer(@current_bid) >= @item.buy_price && (@item.buy_price > 0)) # Current bid greater than "buy now" price
@@ -229,7 +227,6 @@ class ItemsController < ApplicationController
           @user = User.find(@item.current_bidder_id)
           #TODO: Refactor send email method
           UserMailer.welcome_email(@user).deliver
-          puts("IT SHOULD HAVE EMAILED")
         end
         @item.current_bid =  @current_bid
         @item.minimum_bid_price = Integer(@current_bid) + 1
@@ -237,7 +234,11 @@ class ItemsController < ApplicationController
         @item.save!
       end
     else
-      flash[:alert] = "This item is no longer available for bidding!"
+      if @item.status == [2,3] # Item already sold
+        flash[:alert] = "We are sorry but this item was sold"
+      else # Item already expired
+        flash[:alert] = "We are sorry but this item already expired at " + @item_end_date.to_s
+      end
     end
     render("show")
   end
