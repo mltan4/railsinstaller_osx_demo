@@ -93,6 +93,7 @@ class ItemsController < ApplicationController
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render json: @item, status: :created, location: @item }
       else
+        @categories = Category.all
         format.html { render action: "new" }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end

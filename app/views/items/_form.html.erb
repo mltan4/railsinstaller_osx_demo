@@ -1,28 +1,31 @@
 <%= form_for @item, :html => {:multipart => true} do |f| %>
   <% if @item.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-error">
       <!--This message is displayed if there any errors saving items-->
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+      <% flash[:alert] = pluralize(@item.errors.count, "error") + " prohibited this item from being saved:"%>
       <ul>
       <% @item.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+       <li><%= msg  %> </li>
       <% end %>
       </ul>
     </div>
-  <% end %>
+   <% end %>
     <!--Otherwise, display title and other fields as shown below-->
+  <h1>New item</h1>
   <br><br>
   <div class="field">
     <%= f.label :display_title %>
     <%= f.text_field :display_title %>
   </div>
   <br>
+
   <div class="btn-group">   <!-- fix: we defined categories all in items controller -->
     Categories
     <br>
     <%= collection_select(:item, :category_id, @categories, :id, :title) %>
   </div>
   <br>
+
   <div class="field">
     <%= f.label :quantity %>
     <%= f.number_field :quantity %>
@@ -80,3 +83,4 @@
     <%= f.submit :class => "btn btn-primary"%>
   </div>
 <% end %>
+
