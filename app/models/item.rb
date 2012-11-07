@@ -21,6 +21,7 @@
 
 class Item < ActiveRecord::Base
   attr_accessible :bid_duration, :buy_price, :category_id, :description, :minimum_bid_price, :quantity, :title, :display_title, :item_images_attributes, :current_bidder_id
+  validates_presence_of :display_title, :category_id, :description, :quantity
 
   # Relationships
   has_many :item_images
