@@ -63,7 +63,7 @@
       <br>
       <h5>Seller information:
         <!--TODO: Add seller username when creating a new item-->
-      <a href="example.com"><%= @item.seller_id %></a></h5>
+      <a href="example.com"><%= @item.username %></a></h5>
         <!--TODO: Add seller rating to migration-->
         <!--<TODO: (1..@seller.rating).each do %>-->
         <br>
@@ -77,13 +77,14 @@
   <tr>
     <td>
       <div class="breadcrumb">
-        <h4>Description:</h4>
+        <h4>D
+
+          <%= link_to 'Edit', edit_item_path(@item) %> |
+          <%= link_to 'Back', items_path %>
+          escription:</h4>
 
         <p class="content-text"><%= @item.description %> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum egestas ultricies. Mauris nibh velit, vehicula eu dapibus non, pharetra eu purus. Donec est risus, ultricies ut egestas id, ultrices ut enim. Aliquam eget libero nisi, vitae molestie lorem. Phasellus laoreet purus vel risus gravida eget porttitor libero scelerisque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut vitae nibh velit, quis facilisis justo. Cras vitae diam et quam euismod luctus in ut enim. Phasellus luctus ligula at orci facilisis non facilisis purus commodo. Proin gravida nunc vel nulla ornare ut dapibus lorem rutrum.</p>
       </div>
     </td>
   </tr>
 </table>
-
-<%= link_to 'Edit', edit_item_path(@item) %> |
-<%= link_to 'Back', items_path %>

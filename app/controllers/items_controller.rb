@@ -49,6 +49,8 @@ class ItemsController < ApplicationController
   def show
     #Shows the item as identified by the id parameter
     @item = Item.find(params[:id])
+    @item.username = User.find(@item.seller_id).username
+    #puts(@item.user.username)
     @category = Category.find(@item.category_id)
     @item_end_date = @item.created_at + @item.bid_duration.to_i.days
 #    @seller = User.find(@item.seller_id)
@@ -110,6 +112,7 @@ class ItemsController < ApplicationController
       @item.seller_id = current_user.id
       @item.current_bidder_id = nil
       @item.status = 1 # Active item
+      #@item.user = current_user
     end
 
     respond_to do |format|
@@ -243,5 +246,6 @@ class ItemsController < ApplicationController
     end
     render("show")
   end
+
 
 end
