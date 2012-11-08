@@ -165,12 +165,14 @@ class ItemsController < ApplicationController
     end
   end
 
+
   # Action for buying an item now, bypasses place_bid.
   #
   # Loads params [: id] of item and performs notification actions.
   #
   # Finds the current buyer and seller and sends them email via UserMailer, then change item_status to 2 (sold).
   #
+  # test
   def buy_now
     @item = Item.find(params[:id])
     puts(current_user.id)
